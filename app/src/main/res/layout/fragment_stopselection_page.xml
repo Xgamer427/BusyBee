@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectionPage"
-    android:id="@+id/fragmentSelectionPage"
-    >
+    tools:context=".StopSelectionPage"
+    android:id="@+id/fragmentViewPage">
 
     <TextView
         android:id="@+id/tvSelectionPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select bus &amp; stop where you want to get it"
+        android:text="Select bus stop where you want to get the bus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,49 +35,15 @@
             android:textSize="20sp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/btnSelectStopSelection"
+        <AutoCompleteTextView
+            android:id="@+id/actvStopSelection"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
-            android:text="Select"
+            android:hint="Select stop ..."
             android:textSize="20sp"
-            android:layout_weight="10" />
-
-
+            android:layout_weight="10"/>
     </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/llBusSelection"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/llStopSelection">
-
-        <TextView
-            android:id="@+id/tvBusSelection"
-            android:layout_width="40dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Bus: "
-            android:textSize="20sp"
-            android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btnSelectBusSelection"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:textColor="@color/black"
-            android:backgroundTint="@color/white"
-            android:text="Select"
-            android:textSize="20sp"
-            android:layout_weight="10" />
-
-
-    </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
