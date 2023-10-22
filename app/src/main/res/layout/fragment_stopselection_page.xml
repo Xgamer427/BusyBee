@@ -7,6 +7,7 @@
     tools:context=".StopSelectionPage"
     android:id="@+id/fragmentViewPage">
 
+
     <TextView
         android:id="@+id/tvSelectionPage"
         android:layout_width="wrap_content"
@@ -17,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="30dp"
         android:textAlignment="center"
-        android:padding="10dp"/>
+        android:padding="20dp"/>
 
     <LinearLayout
         android:id="@+id/llStopSelection"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/tvSelectionPage">
 
@@ -46,4 +47,15 @@
             android:textSize="20sp"
             android:layout_weight="10"/>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveStopSelection"
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:text="Save Stop"
+        android:enabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
