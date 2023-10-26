@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.Stop
-import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_stopselection_page.actvStopSelection
 import kotlinx.android.synthetic.main.fragment_stopselection_page.btnSaveStopSelection
 
@@ -20,8 +18,6 @@ import kotlinx.android.synthetic.main.fragment_stopselection_page.btnSaveStopSel
 class StopSelectionPage : Fragment() {
 
 
-
-    private val stops = arrayOf("stop1", "stop2")
     private var selectedStop: Stop? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +32,7 @@ class StopSelectionPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //setup UI element
-        btnSaveStopSelection.isEnabled = false;
+        btnSaveStopSelection.isEnabled = false
 
         //Set array for stopSelection auto complete
         val con = this.context
@@ -57,17 +53,16 @@ class StopSelectionPage : Fragment() {
 
         actvStopSelection.setOnItemClickListener { parent, view, position, id ->
             selectedStop = parent.getItemAtPosition(position) as Stop
-            btnSaveStopSelection.isEnabled = true;
+            btnSaveStopSelection.isEnabled = true
         }
 
         actvStopSelection.addTextChangedListener {//this is executed before itemslickListener so its fine => if something selected button is clickable, if changed afterwards button not clickable
-            btnSaveStopSelection.isEnabled = false;
+            btnSaveStopSelection.isEnabled = false
         }
 
 
         //OnClick for button to save selected stop
         btnSaveStopSelection.setOnClickListener{
-            Log.d("Leo", "Clicked")
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
             model.updateCurrentSetupStop(selectedStop!!)
             activity?.supportFragmentManager?.popBackStack()

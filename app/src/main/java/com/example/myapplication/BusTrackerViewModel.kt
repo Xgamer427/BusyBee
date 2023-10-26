@@ -15,4 +15,8 @@ class BusTrackerViewModel : ViewModel() {
         _uiState.value = BusTrackerUiState(currentSetupStop = stop)
     }
 
+    fun updateCurrentSetupBuffertime(bufferTime:Int){
+        _uiState.value = BusTrackerUiState(currentSetupBuffertime = bufferTime)
+    }
+
 }
