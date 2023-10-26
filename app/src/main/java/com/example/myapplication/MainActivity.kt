@@ -26,6 +26,7 @@ class MainActivity : FragmentActivity() {
 
 
         window.decorView.post {
+
             btnSelectStopSelection.setOnClickListener {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.fragmentContainer, StopSelectionPage())
@@ -40,6 +41,7 @@ class MainActivity : FragmentActivity() {
                     commit()
                 }
             }
+
         }
     }
 }
