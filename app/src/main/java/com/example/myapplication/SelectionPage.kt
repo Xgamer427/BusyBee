@@ -19,6 +19,9 @@ import kotlinx.coroutines.launch
 
 class SelectionPage : Fragment() {
 
+    companion object{
+        val bustrackerNotificationToBuild: BusTrackerNotification? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +38,6 @@ class SelectionPage : Fragment() {
                         textToShow = currentUiState.currentSetupStop.name
                     }
                     btnSelectStopSelection.text = textToShow
-
                 }
             }
         }
@@ -43,10 +45,16 @@ class SelectionPage : Fragment() {
         return inflater.inflate(R.layout.fragment_selection_page, container, false)
     }
 
-    companion object{
-        val bustrackerNotificationToBuild: BusTrackerNotification? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        btnSelectStopSelection.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, StopSelectionPage())
+                addToBackStack(null)
+                commit()
+            }
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
-
 
 
 }

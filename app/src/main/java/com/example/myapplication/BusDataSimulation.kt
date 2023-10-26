@@ -2,25 +2,43 @@ package com.example.myapplication
 
 import android.util.Log
 import com.example.myapplication.data.Bus
+import com.example.myapplication.data.Busline
+import com.example.myapplication.data.DepartureTime
 import com.example.myapplication.data.Stop
 
-class BusDataSimulation: Thread() {
+class BusDataSimulation {
 
-    private val stops = arrayOf<Stop>(
+    private val stops: List<Stop> = mutableListOf(
         Stop(0,0,"Stop1"),
-        Stop(0,0,"Stop2")
+        Stop(0,0,"Stop2"),
+        Stop(0,0,"Stop3"),
+        Stop(0,0,"Stop4"),
+        Stop(0,0,"Stop5"),
+        Stop(0,0,"Stop6"),
     )
 
-    private val bus = Bus(0,0,"TestBus", stops[0], stops[1], 10)
+    private val buslines:List<Busline> = mutableListOf(
+        Busline(stops.slice(0..2)),
+    )
 
-    override fun run() {
+    private val buses:List<Bus> = mutableListOf(
+        Bus(0,0, buslines[0],
+            mutableListOf(
+                DepartureTime(12,10),
+                DepartureTime(12,12),
+                DepartureTime(12,14)
+            ),
+            true
+        ),
 
-        while (true){
-            sleep(1000)
-            getInstance().update()
-        }
-
-    }
+        Bus(0,0, buslines[0],
+            mutableListOf(
+                DepartureTime(12,10),
+                DepartureTime(12,12),
+                DepartureTime(12,14)),
+            false
+        ),
+    )
 
     companion object {
         @Volatile
@@ -33,9 +51,4 @@ class BusDataSimulation: Thread() {
     }
 
     fun getStops() = stops
-
-    private fun update(){
-        bus.update()
-        Log.d("BusSimulation", bus.fromStop.name + " -> " + bus.toStop.name + " minutes left " + bus.timeToNextStop)
-    }
 }

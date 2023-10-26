@@ -19,20 +19,6 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        BusDataSimulation().start()
-
-
-
-        window.decorView.post {
-            btnSelectStopSelection.setOnClickListener {
-                supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragmentContainer, StopSelectionPage())
-                    addToBackStack(null)
-                    commit()
-                }
-            }
-        }
     }
 
 
