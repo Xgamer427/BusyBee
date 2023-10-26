@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import android.util.Log
 import com.example.myapplication.data.Bus
 import com.example.myapplication.data.Busline
 import com.example.myapplication.data.DepartureTime
@@ -33,9 +32,9 @@ class BusDataSimulation {
 
         Bus(0,0, buslines[0],
             mutableListOf(
-                DepartureTime(12,10),
+                DepartureTime(12,14),
                 DepartureTime(12,12),
-                DepartureTime(12,14)),
+                DepartureTime(12,10)),
             false
         ),
     )
