@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerUiState
+import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
 import kotlinx.coroutines.launch
@@ -28,6 +29,13 @@ class MainActivity : FragmentActivity() {
             btnSelectStopSelection.setOnClickListener {
                 supportFragmentManager.beginTransaction().apply {
                     replace(R.id.fragmentContainer, StopSelectionPage())
+                    addToBackStack(null)
+                    commit()
+                }
+            }
+            btnSelectBusSelection.setOnClickListener{
+                supportFragmentManager.beginTransaction().apply {
+                    replace(R.id.fragmentContainer, BusSelectionPage())
                     addToBackStack(null)
                     commit()
                 }
