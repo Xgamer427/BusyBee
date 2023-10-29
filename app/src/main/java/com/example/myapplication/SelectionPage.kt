@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.etAdditionalTime
 import kotlinx.android.synthetic.main.fragment_selection_page.etBuffertime
 import kotlinx.coroutines.launch
 
@@ -60,10 +61,15 @@ class SelectionPage : Fragment() {
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupBuffertime(etBuffertime.text.toString().toInt())
                 Log.d("ViewModel", model.uiState.value.toString())
-
             }
+        }
 
-
+        etAdditionalTime.addTextChangedListener {
+            if(etAdditionalTime.text.toString() != ""){
+                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+                model.updateCurrentSetupAdditionaltime(etAdditionalTime.text.toString().toInt())
+                Log.d("ViewModel", model.uiState.value.toString())
+            }
         }
         super.onViewCreated(view, savedInstanceState)
     }
