@@ -1,25 +1,30 @@
 package com.example.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myapplication.data.BusTrackerNotification
 import androidx.activity.viewModels
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
+import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.etBuffertime
 import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
 import kotlinx.coroutines.launch
 
 
 class SelectionPage : Fragment() {
 
-    companion object{
+    companion object {
         val bustrackerNotificationToBuild: BusTrackerNotification? = null
     }
 
@@ -103,3 +108,5 @@ class SelectionPage : Fragment() {
             }
 
         }
+    }
+}
