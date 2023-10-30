@@ -75,6 +75,8 @@ class SelectionPage : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
         btnSelectStopSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, StopSelectionPage())
@@ -90,23 +92,23 @@ class SelectionPage : Fragment() {
                 Log.d("ViewModel", model.uiState.value.toString())
 
             }
+        }
 
-            btnSelectBusSelection.setOnClickListener {
-                activity?.supportFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.fragmentContainer, BusSelectionPage())
-                    addToBackStack(null)
-                    commit()
-                }
+        btnSelectBusSelection.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, BusSelectionPage())
+                addToBackStack(null)
+                commit()
             }
+        }
 
-            btnSelectDeparturetime.setOnClickListener {
-                activity?.supportFragmentManager?.beginTransaction()?.apply {
-                    replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
-                    addToBackStack(null)
-                    commit()
-                }
+        btnSelectDeparturetime.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                Log.d("Tim", "Clicked")
+                replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
+                addToBackStack(null)
+                commit()
             }
-
         }
     }
 }
