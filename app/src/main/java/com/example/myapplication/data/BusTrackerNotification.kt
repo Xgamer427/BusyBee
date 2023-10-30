@@ -1,6 +1,5 @@
 package com.example.myapplication.data
 
-import android.util.Log
 import kotlin.random.Random
 
 
@@ -10,7 +9,22 @@ data class BusTrackerNotification(
     val plannedDepTime: DepartureTime,
     val buffertime: Int = 0,
     val additionalTime: Int = 0
-)
+) {
+    fun getRealDepartureTime(): DepartureTime{
+        var indexIfStopInBusLineServed: Int = 0
+        for (stopIter: Stop in bus.buslineServed.stops) {
+            if (stop== stopIter){
+                break;
+            }
+            indexIfStopInBusLineServed++
+        }
+        return bus.realDepTimes[indexIfStopInBusLineServed]
+    }
+
+    fun getTimeToGetReady(): DepartureTime{
+        return getRealDepartureTime().plusMinutes(buffertime).plusMinutes(additionalTime)
+    }
+}
 
 data class DepartureTime(
     var hour: Int = 0,
@@ -22,20 +36,42 @@ data class DepartureTime(
         }
     }
 
-    fun plusMinutes(plusMin: Int){
+    fun plusMinutes(plusMin: Int): DepartureTime{
         val newMin: Int = min + plusMin
-        print("newMin" + newMin)
         plusHours(newMin/60)
         min = newMin%60
-        print("min" + min)
+        return this
     }
 
-    fun plusHours(plusH: Int){
+    fun plusHours(plusH: Int) : DepartureTime{
         hour = (hour+plusH)%24
+        return this
     }
 
     fun clone(): DepartureTime{
         return DepartureTime(hour,min)
+    }
+
+    fun equalsAndGreaterSmaller(other: DepartureTime){
+
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as DepartureTime
+
+        if (hour != other.hour) return false
+        if (min != other.min) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = hour
+        result = 31 * result + min
+        return result
     }
 }
 

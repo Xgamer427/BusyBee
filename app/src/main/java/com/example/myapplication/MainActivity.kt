@@ -1,16 +1,10 @@
 package com.example.myapplication
 
-import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import com.example.myapplication.data.Bus
-import com.example.myapplication.data.BusTrackerUiState
-import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
-import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
-import kotlinx.coroutines.launch
 
 
 class MainActivity : FragmentActivity() {
@@ -19,7 +13,22 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        object : Thread() {
+            @RequiresApi(Build.VERSION_CODES.O)
+            override fun run() {
+                viewModel.getNofiticationNeeded()
+                var builder = NotificationCompat.Builder(applicationContext)
+                    .setSmallIcon(R.drawable.ic_launcher_foreground)
+                    .setContentTitle("Get Ready to get your bus")
+                    .setContentText("")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+                sleep(10000)
+            }
+        }.start()
     }
+
 
 
 
