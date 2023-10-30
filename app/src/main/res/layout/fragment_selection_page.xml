@@ -81,4 +81,34 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/llDeparturetimeSelection"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/llBusSelection">
+
+        <TextView
+            android:id="@+id/tvDeparturetimeSelection"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Departuretime: "
+            android:textSize="20sp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/btnSelectDeparturetime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:text="Select"
+            android:textSize="20sp"
+            android:layout_weight="10" />
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

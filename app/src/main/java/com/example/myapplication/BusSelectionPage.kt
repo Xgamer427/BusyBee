@@ -25,7 +25,7 @@ class BusSelectionPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stopselection_page, container, false)
+        return inflater.inflate(R.layout.fragment_busselection_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,14 +33,13 @@ class BusSelectionPage : Fragment() {
         //setup UI Element. Default value == false
         btnSaveBusSelection.isEnabled = false
 
+        //Set array for busSelection on auto complete
         val con = this.context
-        val busses= BusDataSimulation.getInstance().getBusses()
+        val busses = BusDataSimulation.getInstance().getBusses()
         var busNameArray = arrayOf<String>()
-
         busses.forEach {
             busNameArray += it.name
         }
-
         if(con != null){
             actvBusSelection.setAdapter(
                 ArrayAdapter(

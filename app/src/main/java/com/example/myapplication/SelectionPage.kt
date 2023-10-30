@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
 import kotlinx.coroutines.launch
@@ -20,6 +21,9 @@ import kotlinx.coroutines.launch
 
 class SelectionPage : Fragment() {
 
+    companion object {
+        val bustrackerNotificationToBuild: BusTrackerNotification? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,20 +42,28 @@ class SelectionPage : Fragment() {
                     // Retrieve the current UI state from the ViewModel
                     val currentUiState: BusTrackerUiState = model.uiState.value
 
+                    //TODO: Cleaning up the following Code
+
                     // Initialize a default text to show
-                    var textToShow: String = "Select ..."
+                    var textToShowStop: String = "Select ..."
+                    var textToShowBus: String = "Select ..."
+                    var textToShowDeparturetime: String = "Select ..."
 
                     // Check if the currentSetupStop has a name, and if so, update textToShow
                     if (currentUiState.currentSetupStop?.name != null) {
-                        textToShow = currentUiState.currentSetupStop.name
+                        textToShowStop = currentUiState.currentSetupStop.name
                     }
-                    if(currentUiState.currentSetupBus?.name != null) {
-                        textToShow = currentUiState.currentSetupBus.name
+                    if (currentUiState.currentSetupBus?.name != null) {
+                        textToShowBus = currentUiState.currentSetupBus.name
                     }
-
+                    if (currentUiState.currentSetupDepartureTime?.toString() != null) {
+                        textToShowDeparturetime =
+                            currentUiState.currentSetupDepartureTime.toString()
+                    }
                     // Update the text of UI elements (buttons) based on the collected data
-                    btnSelectStopSelection.text = textToShow
-                    btnSelectBusSelection.text = textToShow
+                    btnSelectStopSelection.text = textToShowStop
+                    btnSelectBusSelection.text = textToShowBus
+                    btnSelectDeparturetime.text = textToShowDeparturetime
                 }
             }
         }
@@ -60,11 +72,31 @@ class SelectionPage : Fragment() {
         return inflater.inflate(R.layout.fragment_selection_page, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        btnSelectStopSelection.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, StopSelectionPage())
+                addToBackStack(null)
+                commit()
+            }
+        }
 
-    companion object{
-        val bustrackerNotificationToBuild: BusTrackerNotification? = null
+        btnSelectBusSelection.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, BusSelectionPage())
+                addToBackStack(null)
+                commit()
+            }
+        }
+
+        btnSelectDeparturetime.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
+                addToBackStack(null)
+                commit()
+            }
+        }
+
+
     }
-
-
-
 }

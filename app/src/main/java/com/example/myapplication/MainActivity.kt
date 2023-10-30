@@ -34,14 +34,6 @@ class MainActivity : FragmentActivity() {
                     commit()
                 }
             }
-            btnSelectBusSelection.setOnClickListener{
-                supportFragmentManager.beginTransaction().apply {
-                    replace(R.id.fragmentContainer, BusSelectionPage())
-                    addToBackStack(null)
-                    commit()
-                }
-            }
-
         }
     }
 }
