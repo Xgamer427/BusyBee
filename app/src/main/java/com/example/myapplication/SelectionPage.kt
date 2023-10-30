@@ -12,8 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
-import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
-import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
 import kotlinx.coroutines.launch
@@ -21,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class SelectionPage : Fragment() {
 
-    companion object {
+    companion object{
         val bustrackerNotificationToBuild: BusTrackerNotification? = null
     }
 
@@ -67,8 +65,7 @@ class SelectionPage : Fragment() {
                 }
             }
         }
-
-        // Inflate and return the layout associated with this fragment
+        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_selection_page, container, false)
     }
 
@@ -81,22 +78,28 @@ class SelectionPage : Fragment() {
             }
         }
 
-        btnSelectBusSelection.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, BusSelectionPage())
-                addToBackStack(null)
-                commit()
+        etBuffertime.addTextChangedListener {
+            if (etBuffertime.text.toString() != "") {
+                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+                model.updateCurrentSetupBuffertime(etBuffertime.text.toString().toInt())
+                Log.d("ViewModel", model.uiState.value.toString())
+
             }
-        }
 
-        btnSelectDeparturetime.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
-                addToBackStack(null)
-                commit()
+            btnSelectBusSelection.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragmentContainer, BusSelectionPage())
+                    addToBackStack(null)
+                    commit()
+                }
             }
+
+            btnSelectDeparturetime.setOnClickListener {
+                activity?.supportFragmentManager?.beginTransaction()?.apply {
+                    replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
+                    addToBackStack(null)
+                    commit()
+                }
+            }
+
         }
-
-
-    }
-}
