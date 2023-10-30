@@ -6,6 +6,8 @@ import com.example.myapplication.data.DepartureTime
 import com.example.myapplication.data.Stop
 
 class BusDataSimulation {
+    // a bus serves one busline (in a sertain direction),
+    // a busline has a list of stops which the busline drives through
 
     private val stops: List<Stop> = mutableListOf(
         Stop(0,0,"Stop1"),
