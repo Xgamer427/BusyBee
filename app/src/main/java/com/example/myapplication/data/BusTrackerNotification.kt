@@ -20,6 +20,10 @@ data class DepartureTime(
         if(hour<0 || hour>23 || min<0 || min>59){
             throw Exception("Values are not in time boundaries")
         }
+
+    }
+    override fun toString(): String {
+        return hour.toString() + "h" + min.toString() + "min"
     }
 
     fun plusMinutes(plusMin: Int){
@@ -52,6 +56,7 @@ data class Stop(
 data class Bus(
     val longditude: Long = 0,
     val latitude: Long = 0,
+    val name: String,
     val buslineServed: Busline,
     val plannedDepTimes: List<DepartureTime>,//gives the departure times for the stops of the buslineServed in the order of the stops in buslineServed (exaple plannedDepTime[0] is departure for buslineServer.stops[0]. This not depends on directionArrayAscendant
     val directionArrayAscendant : Boolean
