@@ -39,11 +39,19 @@ class BusTrackerViewModel : ViewModel() {
     }
 
     fun updateCurrentSetupBus(bus: Bus){
-        _uiState.value = BusTrackerUiState(currentSetupBus = bus)
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupBus = bus
+            )
+        }
     }
 
     fun updateCurrentDeparturetime(departureTime: DepartureTime){
-        _uiState.value = BusTrackerUiState(currentSetupDepartureTime = departureTime)
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupDepartureTime = departureTime
+            )
+        }
     }
 
 }
