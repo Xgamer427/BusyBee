@@ -1,5 +1,8 @@
 package com.example.myapplication
 
+import android.os.Build
+import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerNotification
@@ -61,7 +64,7 @@ class BusTrackerViewModel : ViewModel() {
     fun getNofiticationNeeded(): List<BusTrackerNotification>?{
         val currentTimeStamp = LocalDateTime.now()
         Log.d("Leo", currentTimeStamp.toString())
-        if(DepartureTime(currentTimeStamp.hour, currentTimeStamp.minute))
+        //if(DepartureTime(currentTimeStamp.hour, currentTimeStamp.minute))
 
         val currentUiState = _uiState.value
          currentUiState.notificationArray.forEach {
