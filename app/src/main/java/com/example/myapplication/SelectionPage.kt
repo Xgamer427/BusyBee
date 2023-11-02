@@ -16,6 +16,7 @@ import com.example.myapplication.data.BusTrackerUiState
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.etAdditionalTime
 import kotlinx.android.synthetic.main.fragment_selection_page.etBuffertime
 import kotlinx.coroutines.launch
 
@@ -84,11 +85,18 @@ class SelectionPage : Fragment() {
         }
 
         etBuffertime.addTextChangedListener {
-            if (etBuffertime.text.toString() != "") {
+            if(etBuffertime.text.toString() != ""){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupBuffertime(etBuffertime.text.toString().toInt())
                 Log.d("ViewModel", model.uiState.value.toString())
+            }
+        }
 
+        etAdditionalTime.addTextChangedListener {
+            if(etAdditionalTime.text.toString() != ""){
+                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+                model.updateCurrentSetupAdditionaltime(etAdditionalTime.text.toString().toInt())
+                Log.d("ViewModel", model.uiState.value.toString())
             }
         }
 
@@ -108,5 +116,8 @@ class SelectionPage : Fragment() {
                 commit()
             }
         }
+        super.onViewCreated(view, savedInstanceState)
     }
+
+
 }

@@ -6,7 +6,7 @@ import com.example.myapplication.data.Busline
 import com.example.myapplication.data.DepartureTime
 import com.example.myapplication.data.Stop
 
-class BusDataSimulation: Thread() {
+class BusDataSimulation {
 
     private val stops = arrayOf<Stop>(
         Stop(0,0,"Stop1"),
