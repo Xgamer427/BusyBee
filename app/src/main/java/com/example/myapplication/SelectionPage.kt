@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_selection_page.etBuffertime
 import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
 import kotlinx.coroutines.launch
 
-
 class SelectionPage : Fragment() {
 
     companion object {
