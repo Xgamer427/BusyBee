@@ -23,7 +23,7 @@ class BusDataSimulation: Thread() {
 //    )
 
     private val buslines:List<Busline> = mutableListOf(
-        Busline(stops.slice(0..2)),
+        Busline( "Test", stops.slice(0..2)),
     )
 
     private val buses:List<Bus> = mutableListOf(
@@ -58,5 +58,7 @@ class BusDataSimulation: Thread() {
     fun getStops() = stops
 
     fun getBusses() = buses
+
+    fun getBuslines() = buslines
 
 }
