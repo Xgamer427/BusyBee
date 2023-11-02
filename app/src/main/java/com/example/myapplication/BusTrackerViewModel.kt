@@ -1,10 +1,7 @@
 package com.example.myapplication
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.BusTrackerUiState
 import com.example.myapplication.data.DepartureTime
@@ -40,6 +37,22 @@ class BusTrackerViewModel : ViewModel() {
         _uiState.update { currentState ->
             currentState.copy(
                 currentSetupAdditionalTime = additionalTime
+            )
+        }
+    }
+
+    fun updateCurrentSetupBus(bus: Bus){
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupBus = bus
+            )
+        }
+    }
+
+    fun updateCurrentDeparturetime(departureTime: DepartureTime){
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupDepartureTime = departureTime
             )
         }
     }
