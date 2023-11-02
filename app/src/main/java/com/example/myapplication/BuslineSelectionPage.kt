@@ -9,16 +9,14 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.data.Bus
-import com.example.myapplication.data.Stop
-import kotlinx.android.synthetic.main.fragment_busselection_page.actvBusSelection
-import kotlinx.android.synthetic.main.fragment_busselection_page.btnSaveBusSelection
-import kotlinx.coroutines.NonDisposableHandle.parent
+import com.example.myapplication.data.Busline
+import kotlinx.android.synthetic.main.fragment_busselection_page.actvBuslineSelection
+import kotlinx.android.synthetic.main.fragment_busselection_page.btnSaveBuslineSelection
 
-class BusSelectionPage : Fragment() {
+class BuslineSelectionPage : Fragment() {
 
-    private val busses = arrayOf("bus1", "bus2")
-    private var selectedBus: Bus? = null
+    private val buslines= arrayOf("busline1", "busline2")
+    private var selectedBusline: Busline? = null
 
      override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,39 +29,39 @@ class BusSelectionPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         //setup UI Element. Default value == false
-        btnSaveBusSelection.isEnabled = false
+        btnSaveBuslineSelection.isEnabled = false
 
         //Set array for busSelection on auto complete
         val con = this.context
-        val busses = BusDataSimulation.getInstance().getBusses()
-        var busNameArray = arrayOf<String>()
-        busses.forEach {
-            busNameArray += it.name
+        val buslines = BusDataSimulation.getInstance().getBuslines()
+        var buslineNameArray = arrayOf<String>()
+        buslines.forEach {
+            buslineNameArray += it.name
         }
         if(con != null){
-            actvBusSelection.setAdapter(
+            actvBuslineSelection.setAdapter(
                 ArrayAdapter(
                     con,
                     android.R.layout.simple_dropdown_item_1line,
-                    busses
+                    buslines
                 )
             )
         }
 
-        actvBusSelection.setOnItemClickListener { parent, view, position, id ->
-            selectedBus = parent.getItemAtPosition(position) as Bus
-            btnSaveBusSelection.isEnabled = true
+        actvBuslineSelection.setOnItemClickListener { parent, view, position, id ->
+            selectedBusline = parent.getItemAtPosition(position) as Busline
+            btnSaveBuslineSelection.isEnabled = true
         }
 
-        actvBusSelection.addTextChangedListener {
-            btnSaveBusSelection.isEnabled = false
+        actvBuslineSelection.addTextChangedListener {
+            btnSaveBuslineSelection.isEnabled = false
         }
 
         //OnClick for button to save selected bus
-        btnSaveBusSelection.setOnClickListener {
+        btnSaveBuslineSelection.setOnClickListener {
             Log.d("Tim", "Clicked")
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-            model.updateCurrentSetupBus(selectedBus!!)
+            model.updateCurrentBusline(selectedBusline!!)
             activity?.supportFragmentManager?.popBackStack()
         }
 

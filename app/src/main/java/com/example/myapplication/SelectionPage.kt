@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.myapplication.data.BusTrackerNotification
-import androidx.activity.viewModels
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparture
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.etAdditionalTime
 import kotlinx.android.synthetic.main.fragment_selection_page.etBuffertime
-import kotlinx.android.synthetic.main.fragment_selection_page.tvStopSelection
 import kotlinx.coroutines.launch
 
 
@@ -104,7 +102,7 @@ class SelectionPage : Fragment() {
 
         btnSelectBusSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, BusSelectionPage())
+                replace(R.id.fragmentContainer, BuslineSelectionPage())
                 addToBackStack(null)
                 commit()
             }

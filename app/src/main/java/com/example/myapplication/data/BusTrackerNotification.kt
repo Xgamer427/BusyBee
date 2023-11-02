@@ -134,6 +134,7 @@ data class Bus(
 }
 
 data class Busline(
+    val name: String,
     val stops: List<Stop>
 ) {
 
