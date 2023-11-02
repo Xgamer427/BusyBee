@@ -5,11 +5,12 @@ import kotlin.random.Random
 
 data class BusTrackerNotification(
     val stop: Stop,
-    val bus: Bus,
     val plannedDepTime: DepartureTime,
     val buffertime: Int = 0,
     val additionalTime: Int = 0
 ) {
+
+    /* TODO make the flow with find out if notification needed work
     fun getRealDepartureTime(): DepartureTime{
         var indexIfStopInBusLineServed: Int = 0
         for (stopIter: Stop in bus.buslineServed.stops) {
@@ -23,7 +24,7 @@ data class BusTrackerNotification(
 
     fun getTimeToGetReady(): DepartureTime{
         return getRealDepartureTime().plusMinutes(buffertime).plusMinutes(additionalTime)
-    }
+    }*/
 }
 
 data class DepartureTime(

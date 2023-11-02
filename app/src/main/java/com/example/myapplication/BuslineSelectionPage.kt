@@ -65,6 +65,8 @@ class BuslineSelectionPage : Fragment() {
             activity?.supportFragmentManager?.popBackStack()
         }
 
+        //TODO set listener for radio button and save direction of the busline the user want to get
+
         super.onViewCreated(view, savedInstanceState)
         }
     }

@@ -34,7 +34,7 @@
             android:layout_weight="1" />
 
         <AutoCompleteTextView
-            android:id="@+id/actvBusSelection"
+            android:id="@+id/actvBuslineSelection"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
@@ -79,7 +79,7 @@
 
 
     <Button
-        android:id="@+id/btnSaveBusSelection"
+        android:id="@+id/btnSaveBuslineSelection"
         android:layout_width="200dp"
         android:layout_height="70dp"
         android:text="Save Bus"

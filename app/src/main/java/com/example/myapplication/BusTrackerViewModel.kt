@@ -45,14 +45,6 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-    fun updateCurrentSetupBus(bus: Bus){
-        _uiState.update { currentState ->
-            currentState.copy(
-                currentSetupBus = bus
-            )
-        }
-    }
-
     fun updateCurrentDeparturetime(departureTime: DepartureTime){
         _uiState.update { currentState ->
             currentState.copy(
@@ -61,6 +53,7 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
+    /* TODO get flow with when to nofifi work
     @RequiresApi(Build.VERSION_CODES.O)
     fun getNofiticationNeeded(): List<BusTrackerNotification>?{
         val currentTimeStamp = LocalDateTime.now()
@@ -73,10 +66,14 @@ class BusTrackerViewModel : ViewModel() {
 
          }
         return null
-    }
+    }*/
 
     fun updateCurrentBusline(busline: Busline){
-        _uiState.value = BusTrackerUiState(currentSetupBusline = busline)
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupBusline = busline
+            )
+        }
     }
 
 }

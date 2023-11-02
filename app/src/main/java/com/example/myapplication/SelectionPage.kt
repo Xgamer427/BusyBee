@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
-import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBuslineSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.etAdditionalTime
@@ -48,15 +48,15 @@ class SelectionPage : Fragment() {
 
                     // Initialize a default text to show
                     var textToShowStop: String = "Select ..."
-                    var textToShowBus: String = "Select ..."
+                    var textToShowBusLine: String = "Select ..."
                     var textToShowDeparturetime: String = "Select ..."
 
                     // Check if the currentSetupStop has a name, and if so, update textToShow
                     if (currentUiState.currentSetupStop?.name != null) {
                         textToShowStop = currentUiState.currentSetupStop.name
                     }
-                    if (currentUiState.currentSetupBus?.name != null) {
-                        textToShowBus = currentUiState.currentSetupBus.name
+                    if (currentUiState.currentSetupBusline?.name != null) {
+                        textToShowBusLine = currentUiState.currentSetupBusline.name
                     }
                     if (currentUiState.currentSetupDepartureTime?.toString() != null) {
                         textToShowDeparturetime =
@@ -64,7 +64,7 @@ class SelectionPage : Fragment() {
                     }
                     // Update the text of UI elements (buttons) based on the collected data
                     btnSelectStopSelection.text = textToShowStop
-                    btnSelectBusSelection.text = textToShowBus
+                    btnSelectBuslineSelection.text = textToShowBusLine
                     btnSelectDeparturetime.text = textToShowDeparturetime
                 }
             }
@@ -100,7 +100,7 @@ class SelectionPage : Fragment() {
             }
         }
 
-        btnSelectBusSelection.setOnClickListener {
+        btnSelectBuslineSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, BuslineSelectionPage())
                 addToBackStack(null)
