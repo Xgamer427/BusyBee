@@ -10,15 +10,14 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.Bus
-import com.example.myapplication.data.Stop
+import com.example.myapplication.data.Busline
 import kotlinx.android.synthetic.main.fragment_busselection_page.actvBusSelection
 import kotlinx.android.synthetic.main.fragment_busselection_page.btnSaveBusSelection
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 class BusSelectionPage : Fragment() {
 
     private val busses = arrayOf("bus1", "bus2")
-    private var selectedBus: Bus? = null
+    private var selectedBusline: Busline? = null
 
      override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,7 @@ class BusSelectionPage : Fragment() {
         }
 
         actvBusSelection.setOnItemClickListener { parent, view, position, id ->
-            selectedBus = parent.getItemAtPosition(position) as Bus
+            selectedBusline = parent.getItemAtPosition(position) as Busline
             btnSaveBusSelection.isEnabled = true
         }
 
@@ -63,7 +62,7 @@ class BusSelectionPage : Fragment() {
         btnSaveBusSelection.setOnClickListener {
             Log.d("Tim", "Clicked")
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-            model.updateCurrentSetupBus(selectedBus!!)
+            model.updateCurrentBusline(selectedBusline!!)
             activity?.supportFragmentManager?.popBackStack()
         }
 

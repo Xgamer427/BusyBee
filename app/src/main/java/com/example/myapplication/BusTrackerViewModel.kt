@@ -3,6 +3,7 @@ package com.example.myapplication
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerUiState
+import com.example.myapplication.data.Busline
 import com.example.myapplication.data.DepartureTime
 import com.example.myapplication.data.Stop
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,6 +28,10 @@ class BusTrackerViewModel : ViewModel() {
 
     fun updateCurrentDeparturetime(departureTime: DepartureTime){
         _uiState.value = BusTrackerUiState(currentSetupDepartureTime = departureTime)
+    }
+
+    fun updateCurrentBusline(busline: Busline){
+        _uiState.value = BusTrackerUiState(currentSetupBusline = busline)
     }
 
 }

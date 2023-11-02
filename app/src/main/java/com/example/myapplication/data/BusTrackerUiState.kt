@@ -6,5 +6,6 @@ data class BusTrackerUiState(
     val currentSetupBus: Bus? = null,
     val currentSetupDepartureTime: DepartureTime? = null,
     val currentSetupBuffertime: Int = 0,
-    val currentSetupAdditionalTime: Int = 0
+    val currentSetupAdditionalTime: Int = 0,
+    val currentSetupBusline: Busline? = null,
 )
