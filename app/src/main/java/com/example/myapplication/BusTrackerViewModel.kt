@@ -53,20 +53,7 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-    /* TODO get flow with when to nofifi work
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getNofiticationNeeded(): List<BusTrackerNotification>?{
-        val currentTimeStamp = LocalDateTime.now()
-        Log.d("Leo", currentTimeStamp.toString())
-        //if(DepartureTime(currentTimeStamp.hour, currentTimeStamp.minute))
 
-        val currentUiState = _uiState.value
-         currentUiState.notificationArray.forEach {
-             it.getTimeToGetReady()
-
-         }
-        return null
-    }*/
 
     fun updateCurrentBusline(busline: Busline){
         _uiState.update { currentState ->

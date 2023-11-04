@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 
 class SelectionPage : Fragment() {
 
+    var thiscontext: Context? = null
     companion object {
         val bustrackerNotificationToBuild: BusTrackerNotification? = null
     }
@@ -31,9 +33,11 @@ class SelectionPage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        thiscontext = container?.getContext();
 
         // Using Kotlin's lifecycleScope to perform asynchronous operations tied to the Fragment's lifecycle
         lifecycleScope.launch {
+
             // This block will execute when the Fragment is in the STARTED state
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Create an instance of a ViewModel called BusTrackerViewModel, which appears to be shared with the activity
@@ -74,6 +78,7 @@ class SelectionPage : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
 
         btnSelectStopSelection.setOnClickListener {
