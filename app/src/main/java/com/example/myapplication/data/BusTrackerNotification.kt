@@ -1,5 +1,6 @@
 package com.example.myapplication.data
 
+import android.graphics.Path
 import android.util.Log
 import kotlin.random.Random
 
@@ -42,6 +43,11 @@ data class DepartureTime(
         return DepartureTime(hour,min)
     }
 }
+
+data class Direction (
+    val directionA: String = "DirectionA",
+    val directionB: String = "DirectionB"
+)
 
 data class Stop(
     val longditude: Long = 0,

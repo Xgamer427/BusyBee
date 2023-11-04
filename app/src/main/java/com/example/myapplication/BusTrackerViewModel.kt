@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.graphics.Path.Direction
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerUiState
@@ -51,6 +52,14 @@ class BusTrackerViewModel : ViewModel() {
         _uiState.update { currentState ->
             currentState.copy(
                 currentSetupDepartureTime = departureTime
+            )
+        }
+    }
+
+    fun updateCurrentDirection(direction: com.example.myapplication.data.Direction){
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupDirection = direction
             )
         }
     }

@@ -8,4 +8,5 @@ data class BusTrackerUiState(
     val currentSetupBuffertime: Int = 0,
     val currentSetupAdditionalTime: Int = 0,
     val currentSetupBusline: Busline? = null,
+    val currentSetupDirection: Direction? = null
 )
