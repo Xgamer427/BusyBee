@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
-import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBusSelection
+import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBuslineSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.etAdditionalTime
@@ -56,7 +56,7 @@ class SelectionPage : Fragment() {
                         textToShowStop = currentUiState.currentSetupStop.name
                     }
                     if (currentUiState.currentSetupBus?.name != null) {
-                        textToShowBus = currentUiState.currentSetupBus.name
+                        textToShowBus = currentUiState.currentSetupBusline.toString()
                     }
                     if (currentUiState.currentSetupDepartureTime?.toString() != null) {
                         textToShowDeparturetime =
@@ -64,7 +64,7 @@ class SelectionPage : Fragment() {
                     }
                     // Update the text of UI elements (buttons) based on the collected data
                     btnSelectStopSelection.text = textToShowStop
-                    btnSelectBusSelection.text = textToShowBus
+                    btnSelectBuslineSelection.text = textToShowBus
                     btnSelectDeparturetime.text = textToShowDeparturetime
                 }
             }
@@ -100,7 +100,7 @@ class SelectionPage : Fragment() {
             }
         }
 
-        btnSelectBusSelection.setOnClickListener {
+        btnSelectBuslineSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, BuslineSelectionPage())
                 addToBackStack(null)

@@ -86,8 +86,6 @@ class BuslineSelectionPage : Fragment() {
             activity?.supportFragmentManager?.popBackStack()
         }
 
-
-
         super.onViewCreated(view, savedInstanceState)
         }
     }
