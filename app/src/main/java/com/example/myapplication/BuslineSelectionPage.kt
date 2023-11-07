@@ -10,10 +10,17 @@ import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.data.BusTrackerUiState
 import com.example.myapplication.data.Busline
+
+import com.example.myapplication.data.Stop
+import com.example.myapplication.databinding.FragmentBuslineselectionPageBinding
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class BuslineSelectionPage : Fragment() {
 
@@ -31,25 +38,50 @@ class BuslineSelectionPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+
         //setup UI Element. Default value == false
         btnSaveBuslineSelection.isEnabled = false
 
-        //Set array for busSelection on auto complete
+        //model for Updating and reading the uiState
         val con = this.context
         val buslines = BusDataSimulation.getInstance().getBuslines()
-        var buslineNameArray = arrayOf<String>()
-        buslines.forEach {
-            buslineNameArray += it.name
+        val currentStop: Stop? = model.uiState.value.currentSetupStop
+        var filteredBuslines: List<Busline> = emptyList()
+        var filteredBuslinesNameArray = arrayListOf<String>()
+
+        if(buslines != null && currentStop != null){
+            filteredBuslines = buslines.filter { busline: Busline ->
+                busline.stops.contains(currentStop)
+            }
+            if(filteredBuslines.isEmpty()) {
+                Log.d("Tim", "filteredBuslines.isEmpty()")
+            }
+        } else {
+            Log.d("Tim", "Buslines or currentStop ist null")
         }
-        if(con != null){
+
+        filteredBuslines.forEach {
+            filteredBuslinesNameArray += it.name
+        }
+        if (con != null) {
             actvBuslineSelection.setAdapter(
                 ArrayAdapter(
                     con,
                     android.R.layout.simple_dropdown_item_1line,
-                    buslines
+                    filteredBuslines
                 )
             )
         }
+
+
+
+        if (con != null) {
+
+        }
+
+
+
 
         actvBuslineSelection.setOnItemClickListener { parent, view, position, id ->
             selectedBusline = parent.getItemAtPosition(position) as Busline
@@ -83,6 +115,7 @@ class BuslineSelectionPage : Fragment() {
                 Log.d("ViewModel", model.uiState.value.toString())
             }
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+
             model.updateCurrentBusline(selectedBusline!!)
             activity?.supportFragmentManager?.popBackStack()
         }
