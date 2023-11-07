@@ -6,15 +6,65 @@ import kotlin.random.Random
 
 data class BusTrackerNotification(
     val stop: Stop,
-    val plannedDepTime: DepartureTime,
+    val busline : Busline,
+    val directionArrayAscendant : Boolean? = null,
+    val timePicked: DepartureTime,
     val buffertime: Int = 0,
     val additionalTime: Int = 0
-)
+
+    val additionalTime: Int = 0,
+
+
+    /*val currentSetupStop: Stop? = null,
+    val currentSetupBusline: Busline? = null,
+
+    val currentSetupDepartureTime: DepartureTime? = null,
+    val currentSetupBuffertime: Int = 0,
+    val currentSetupAdditionalTime: Int = 0,*/
+) {
+
+
+    fun getRealDepartureTime(): DepartureTime? {
+        var indexIfStopInBusLine: Int = 0
+        for (stopIter: Stop in busline.stops) {
+            if (stop == stopIter){
+                break;
+            }
+            indexIfStopInBusLine++
+        }
+        var smallestDiffBetweenPickedAndRealDep : Int = -1
+        var busUsed : Bus? = null
+        BusDataSimulation.getInstance().getBusses().forEach {
+
+            var realDeptimeOfStop = it.realDepTimes[indexIfStopInBusLine]
+
+            if(it.buslineServed == busline && it.directionArrayAscendant == directionArrayAscendant && timePicked < realDeptimeOfStop){
+                var diffTime = abs((timePicked.hour*60 + timePicked.min) - (realDeptimeOfStop.hour*60 + realDeptimeOfStop.min))
+                if(smallestDiffBetweenPickedAndRealDep<0 || diffTime<smallestDiffBetweenPickedAndRealDep){
+                    smallestDiffBetweenPickedAndRealDep = diffTime
+                    busUsed = it
+                }
+            }
+        }
+        if(busUsed != null){
+            return busUsed!!.realDepTimes[indexIfStopInBusLine]
+        }else{
+            return null
+        }
+
+
+    }
+
+    //TODO handle/change that getRealDepartureTIme returns null if the best bus drives at next day
+    fun getTimeToGetReady(): DepartureTime?{
+        return getRealDepartureTime()?.minusMinutes(buffertime)?.minusMinutes(additionalTime) //TODO what if no bus for this time found
+    }
+}
 
 data class DepartureTime(
     var hour: Int = 0,
     var min: Int = 0
-){
+): Comparable<DepartureTime>{
     init {
         if(hour<0 || hour>23 || min<0 || min>59){
             throw Exception("Values are not in time boundaries")
@@ -37,12 +87,40 @@ data class DepartureTime(
         return this
     }
 
+    fun minusMinutes(minusMin: Int): DepartureTime {
+        val newMin: Int = min - minusMin
+        minusHours((newMin/60)+1)
+        min = 60+((newMin)%60)
+        return this
+    }
+
+    private fun minusHours(minusH: Int) {
+        val newH: Int = hour - minusH
+        hour = 24+((newH)%24)
+    }
+
     fun clone(): DepartureTime{
         return DepartureTime(hour,min)
     }
 
-    fun equalsAndGreaterSmaller(other: DepartureTime){
-
+    override fun compareTo(other: DepartureTime): Int {
+        if (hour<other.hour){
+            return -1
+        }else{
+            if(hour==other.hour){
+                if(min<other.min){
+                    return -1
+                }else{
+                    if(min==other.min) {
+                        return 0
+                    }else{
+                        return 1
+                    }
+                }
+            }else{
+                return 1
+            }
+        }
     }
 
     override fun equals(other: Any?): Boolean {

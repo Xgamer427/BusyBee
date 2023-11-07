@@ -57,7 +57,7 @@ class SelectionPage : Fragment() {
                     }
 
                     if (currentUiState.currentSetupBusline?.name != null) {
-                        textToShowBusLine = currentUiState.currentSetupBusline.toString()
+                        textToShowBusLine = currentUiState.currentSetupBusline.name
                     }
                     if (currentUiState.currentSetupDepartureTime?.toString() != null) {
                         textToShowDeparturetime =
@@ -75,6 +75,7 @@ class SelectionPage : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
 
         btnSelectStopSelection.setOnClickListener {

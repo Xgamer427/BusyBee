@@ -57,4 +57,18 @@ class DepartureTimeUnitTest {
         clone.plusMinutes(10)
         assertTrue("After change clone not should be the same",c != clone)
     }
+
+    @Test
+    fun compareTest(){
+        val b = DepartureTime(12,10)
+        val c = DepartureTime(23,59)
+
+        assertTrue(b<c)
+        assertFalse(b>c)
+        assertFalse(b==c)
+
+        val d = DepartureTime(23,59)
+        assertFalse(d<c)
+        assertFalse(d>c)
+    }
 }
