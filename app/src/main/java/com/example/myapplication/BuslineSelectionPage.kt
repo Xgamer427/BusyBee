@@ -10,8 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.Busline
-import kotlinx.android.synthetic.main.fragment_busselection_page.actvBuslineSelection
-import kotlinx.android.synthetic.main.fragment_busselection_page.btnSaveBuslineSelection
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
 
 class BuslineSelectionPage : Fragment() {
 
@@ -23,7 +23,7 @@ class BuslineSelectionPage : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_busselection_page, container, false)
+        return inflater.inflate(R.layout.fragment_buslineselection_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

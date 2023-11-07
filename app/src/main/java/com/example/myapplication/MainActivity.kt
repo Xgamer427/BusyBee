@@ -34,7 +34,7 @@ class MainActivity : FragmentActivity() {
             override fun run() {
                 while(true){
                     val listOfNotitications : List<BusTrackerNotification> = viewModel.uiState.value.getNofiticationNeeded()
-                    if (listOfNotitications.isNotEmpty()){
+                    if (true){
                         Log.d("Notification", "executedtest")
                         val followersChannel: NotificationChannel = NotificationChannel("1", "Name",
                             NotificationManager.IMPORTANCE_DEFAULT )
@@ -57,7 +57,7 @@ class MainActivity : FragmentActivity() {
                 }
 
             }
-        }
+        }.start()
     }
 
 }
