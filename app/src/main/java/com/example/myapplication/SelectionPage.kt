@@ -48,15 +48,15 @@ class SelectionPage : Fragment() {
 
                     // Initialize a default text to show
                     var textToShowStop: String = "Select ..."
-                    var textToShowBus: String = "Select ..."
+                    var textToShowBusline: String = "Select ..."
                     var textToShowDeparturetime: String = "Select ..."
 
                     // Check if the currentSetupStop has a name, and if so, update textToShow
                     if (currentUiState.currentSetupStop?.name != null) {
                         textToShowStop = currentUiState.currentSetupStop.name
                     }
-                    if (currentUiState.currentSetupBus?.name != null) {
-                        textToShowBus = currentUiState.currentSetupBusline.toString()
+                    if (currentUiState.currentSetupBusline?.name != null) {
+                        textToShowBusline = currentUiState.currentSetupBusline.toString()
                     }
                     if (currentUiState.currentSetupDepartureTime?.toString() != null) {
                         textToShowDeparturetime =
@@ -64,7 +64,7 @@ class SelectionPage : Fragment() {
                     }
                     // Update the text of UI elements (buttons) based on the collected data
                     btnSelectStopSelection.text = textToShowStop
-                    btnSelectBuslineSelection.text = textToShowBus
+                    btnSelectBuslineSelection.text = textToShowBusline
                     btnSelectDeparturetime.text = textToShowDeparturetime
                 }
             }
@@ -118,6 +118,4 @@ class SelectionPage : Fragment() {
         }
         super.onViewCreated(view, savedInstanceState)
     }
-
-
 }
