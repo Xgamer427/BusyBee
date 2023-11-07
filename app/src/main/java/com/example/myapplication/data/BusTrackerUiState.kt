@@ -14,6 +14,7 @@ data class BusTrackerUiState(
     val currentSetupDepartureTime: DepartureTime? = null,
     val currentSetupBuffertime: Int = 0,
     val currentSetupAdditionalTime: Int = 0,
+    val currentSetupDirection: Boolean? = null
 ) {
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -32,7 +33,3 @@ data class BusTrackerUiState(
     }
 
 }
-
-    val currentSetupBusline: Busline? = null,
-    val currentSetupDirection: Direction? = null
-)

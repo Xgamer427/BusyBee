@@ -29,7 +29,7 @@
 
         <TextView
             android:id="@+id/tvStopSelection"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="Stop: "
@@ -60,10 +60,10 @@
 
         <TextView
             android:id="@+id/tvBusSelection"
-            android:layout_width="40dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Bus: "
+            android:text="Busline: "
             android:textSize="20sp"
             android:layout_weight="1" />
 

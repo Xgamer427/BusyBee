@@ -56,8 +56,6 @@ class SelectionPage : Fragment() {
                     if (currentUiState.currentSetupStop?.name != null) {
                         textToShowStop = currentUiState.currentSetupStop.name
                     }
-                    if (currentUiState.currentSetupBus?.name != null) {
-                        textToShowBus = currentUiState.currentSetupBusline.toString()
                     if (currentUiState.currentSetupBusline?.name != null) {
                         textToShowBusLine = currentUiState.currentSetupBusline.name
                     }
@@ -67,7 +65,6 @@ class SelectionPage : Fragment() {
                     }
                     // Update the text of UI elements (buttons) based on the collected data
                     btnSelectStopSelection.text = textToShowStop
-                    btnSelectBuslineSelection.text = textToShowBus
                     btnSelectBuslineSelection.text = textToShowBusLine
                     btnSelectDeparturetime.text = textToShowDeparturetime
                 }

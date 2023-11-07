@@ -30,6 +30,14 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
+    fun updateCurrentSetupDirection(valueOfDirection: Boolean){
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupDirection = valueOfDirection
+            )
+        }
+    }
+
     fun updateCurrentSetupBuffertime(bufferTime:Int){
         _uiState.update { currentState ->
             currentState.copy(

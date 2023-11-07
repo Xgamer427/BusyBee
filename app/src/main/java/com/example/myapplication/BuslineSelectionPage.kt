@@ -6,17 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.Busline
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage
 
 class BuslineSelectionPage : Fragment() {
 
     private val buslines= arrayOf("busline1", "busline2")
     private var selectedBusline: Busline? = null
+    private var checkedText : String? = null
 
      override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,18 +62,26 @@ class BuslineSelectionPage : Fragment() {
 
         //Update current checked Button
         rgBuslineSelectionPage.setOnCheckedChangeListener { group, checkedId ->
-            checkedRadioButton = view.findViewById<RadioButton>(checkedId)
+            var checkedRadioButton = view.findViewById<RadioButton>(checkedId)
             Log.d("Tim", "rgChangeListener")
             //Ensure that a RadioButton is checked
             if (checkedRadioButton != null) {
                 checkedText = checkedRadioButton!!.text.toString()
                 Log.d("Tim", checkedText!!)
+                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+                model.updateCurrentSetupDirection(checkedText.equals("DirectionA"))
+                Log.d("ViewModel", model.uiState.value.toString())
             }
         }
 
         //OnClick for button to save selected bus
         btnSaveBuslineSelection.setOnClickListener {
             Log.d("Tim", "Clicked")
+            if(checkedText==null){
+                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+                model.updateCurrentSetupDirection(true)
+                Log.d("ViewModel", model.uiState.value.toString())
+            }
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
             model.updateCurrentBusline(selectedBusline!!)
             activity?.supportFragmentManager?.popBackStack()
