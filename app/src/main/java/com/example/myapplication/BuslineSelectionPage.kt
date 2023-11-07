@@ -57,6 +57,17 @@ class BuslineSelectionPage : Fragment() {
             btnSaveBuslineSelection.isEnabled = false
         }
 
+        //Update current checked Button
+        rgBuslineSelectionPage.setOnCheckedChangeListener { group, checkedId ->
+            checkedRadioButton = view.findViewById<RadioButton>(checkedId)
+            Log.d("Tim", "rgChangeListener")
+            //Ensure that a RadioButton is checked
+            if (checkedRadioButton != null) {
+                checkedText = checkedRadioButton!!.text.toString()
+                Log.d("Tim", checkedText!!)
+            }
+        }
+
         //OnClick for button to save selected bus
         btnSaveBuslineSelection.setOnClickListener {
             Log.d("Tim", "Clicked")
@@ -64,8 +75,6 @@ class BuslineSelectionPage : Fragment() {
             model.updateCurrentBusline(selectedBusline!!)
             activity?.supportFragmentManager?.popBackStack()
         }
-
-        //TODO set listener for radio button and save direction of the busline the user want to get
 
         super.onViewCreated(view, savedInstanceState)
         }

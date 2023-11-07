@@ -24,7 +24,6 @@ import kotlinx.coroutines.launch
 
 class SelectionPage : Fragment() {
 
-    var thiscontext: Context? = null
     companion object {
         val bustrackerNotificationToBuild: BusTrackerNotification? = null
     }
@@ -33,11 +32,9 @@ class SelectionPage : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        thiscontext = container?.getContext();
 
         // Using Kotlin's lifecycleScope to perform asynchronous operations tied to the Fragment's lifecycle
         lifecycleScope.launch {
-
             // This block will execute when the Fragment is in the STARTED state
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Create an instance of a ViewModel called BusTrackerViewModel, which appears to be shared with the activity
@@ -59,6 +56,8 @@ class SelectionPage : Fragment() {
                     if (currentUiState.currentSetupStop?.name != null) {
                         textToShowStop = currentUiState.currentSetupStop.name
                     }
+                    if (currentUiState.currentSetupBus?.name != null) {
+                        textToShowBus = currentUiState.currentSetupBusline.toString()
                     if (currentUiState.currentSetupBusline?.name != null) {
                         textToShowBusLine = currentUiState.currentSetupBusline.name
                     }
@@ -68,6 +67,7 @@ class SelectionPage : Fragment() {
                     }
                     // Update the text of UI elements (buttons) based on the collected data
                     btnSelectStopSelection.text = textToShowStop
+                    btnSelectBuslineSelection.text = textToShowBus
                     btnSelectBuslineSelection.text = textToShowBusLine
                     btnSelectDeparturetime.text = textToShowDeparturetime
                 }

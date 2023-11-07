@@ -143,6 +143,11 @@ data class DepartureTime(
 
 }
 
+data class Direction (
+    val directionA: String = "DirectionA",
+    val directionB: String = "DirectionB"
+)
+
 data class Stop(
     val longditude: Long = 0,
     val latitude: Long = 0,

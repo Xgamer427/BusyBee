@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.Stop
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage
 import kotlinx.android.synthetic.main.fragment_stopselection_page.actvStopSelection
 import kotlinx.android.synthetic.main.fragment_stopselection_page.btnSaveStopSelection
 

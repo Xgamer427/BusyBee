@@ -47,7 +47,7 @@
 
     
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rgBuslineSelectionPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,14 +66,14 @@
                 android:id="@+id/rbDirectionA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Direction A"
+                android:text="DirectionA"
                 android:checked="true" />
 
             <RadioButton
                 android:id="@+id/rbDirectionB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Direction B" />
+                android:text="DirectionB" />
 <!--        </LinearLayout>-->
     </RadioGroup>
 

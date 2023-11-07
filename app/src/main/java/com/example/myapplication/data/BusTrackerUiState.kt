@@ -32,3 +32,7 @@ data class BusTrackerUiState(
     }
 
 }
+
+    val currentSetupBusline: Busline? = null,
+    val currentSetupDirection: Direction? = null
+)
