@@ -6,24 +6,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.Busline
-import kotlinx.android.synthetic.main.fragment_busselection_page.actvBuslineSelection
-import kotlinx.android.synthetic.main.fragment_busselection_page.btnSaveBuslineSelection
+import com.example.myapplication.databinding.FragmentBuslineselectionPageBinding
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
+import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage
 
 class BuslineSelectionPage : Fragment() {
 
+    private lateinit var binding: FragmentBuslineselectionPageBinding
+
     private val buslines= arrayOf("busline1", "busline2")
     private var selectedBusline: Busline? = null
+
+    private var checkedRadioButton: RadioButton? = null
+    private var checkedText: String? = null
 
      override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_busselection_page, container, false)
+        return inflater.inflate(R.layout.fragment_buslineselection_page, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,6 +65,17 @@ class BuslineSelectionPage : Fragment() {
 
         actvBuslineSelection.addTextChangedListener {
             btnSaveBuslineSelection.isEnabled = false
+        }
+
+        //Update current checked Button
+        rgBuslineSelectionPage.setOnCheckedChangeListener { group, checkedId ->
+            checkedRadioButton = view.findViewById<RadioButton>(checkedId)
+            Log.d("Tim", "rgChangeListener")
+            //Ensure that a RadioButton is checked
+            if (checkedRadioButton != null) {
+                checkedText = checkedRadioButton!!.text.toString()
+                Log.d("Tim", checkedText!!)
+            }
         }
 
         //OnClick for button to save selected bus

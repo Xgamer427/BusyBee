@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import android.graphics.Path.Direction
 import androidx.lifecycle.ViewModel
 import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerNotification
@@ -53,20 +54,13 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-    /* TODO get flow with when to nofifi work
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun getNofiticationNeeded(): List<BusTrackerNotification>?{
-        val currentTimeStamp = LocalDateTime.now()
-        Log.d("Leo", currentTimeStamp.toString())
-        //if(DepartureTime(currentTimeStamp.hour, currentTimeStamp.minute))
-
-        val currentUiState = _uiState.value
-         currentUiState.notificationArray.forEach {
-             it.getTimeToGetReady()
-
-         }
-        return null
-    }*/
+    fun updateCurrentDirection(direction: com.example.myapplication.data.Direction){
+        _uiState.update { currentState ->
+            currentState.copy(
+                currentSetupDirection = direction
+            )
+        }
+    }
 
     fun updateCurrentBusline(busline: Busline){
         _uiState.update { currentState ->

@@ -6,10 +6,10 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvBusSelectionPage"
+        android:id="@+id/tvBuslineSelectionPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select bus where you want to go"
+        android:text="Select busline where you want to go"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,18 +18,18 @@
         android:padding="20dp"/>
 
     <LinearLayout
-        android:id="@+id/llBusSelection"
+        android:id="@+id/llBuslineSelection"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/tvBusSelectionPage">
+        app:layout_constraintTop_toBottomOf="@+id/tvBuslineSelectionPage">
 
         <TextView
-            android:id="@+id/tvBusSelection"
-            android:layout_width="40dp"
+            android:id="@+id/tvBuslineSelection"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:text="Bus: "
+            android:text="Busline: "
             android:textSize="20sp"
             android:layout_weight="1" />
 
@@ -40,13 +40,14 @@
             android:gravity="center_vertical"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
-            android:hint="Select bus ..."
+            android:hint="Select busline ..."
             android:textSize="20sp"
             android:layout_weight="10"/>
     </LinearLayout>
 
+    
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rgBuslineSelectionPage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,14 +66,14 @@
                 android:id="@+id/rbDirectionA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Direction A"
+                android:text="DirectionA"
                 android:checked="true" />
 
             <RadioButton
                 android:id="@+id/rbDirectionB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Direction B" />
+                android:text="DirectionB" />
 <!--        </LinearLayout>-->
     </RadioGroup>
 

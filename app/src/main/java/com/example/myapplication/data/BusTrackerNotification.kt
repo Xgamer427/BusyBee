@@ -1,5 +1,6 @@
 package com.example.myapplication.data
 
+import android.util.Log
 import kotlin.random.Random
 
 
@@ -8,24 +9,7 @@ data class BusTrackerNotification(
     val plannedDepTime: DepartureTime,
     val buffertime: Int = 0,
     val additionalTime: Int = 0
-) {
-
-    /* TODO make the flow with find out if notification needed work
-    fun getRealDepartureTime(): DepartureTime{
-        var indexIfStopInBusLineServed: Int = 0
-        for (stopIter: Stop in bus.buslineServed.stops) {
-            if (stop== stopIter){
-                break;
-            }
-            indexIfStopInBusLineServed++
-        }
-        return bus.realDepTimes[indexIfStopInBusLineServed]
-    }
-
-    fun getTimeToGetReady(): DepartureTime{
-        return getRealDepartureTime().plusMinutes(buffertime).plusMinutes(additionalTime)
-    }*/
-}
+)
 
 data class DepartureTime(
     var hour: Int = 0,
@@ -79,6 +63,11 @@ data class DepartureTime(
         return result
     }
 }
+
+data class Direction (
+    val directionA: String = "DirectionA",
+    val directionB: String = "DirectionB"
+)
 
 data class Stop(
     val longditude: Long = 0,

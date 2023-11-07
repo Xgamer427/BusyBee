@@ -55,8 +55,9 @@ class SelectionPage : Fragment() {
                     if (currentUiState.currentSetupStop?.name != null) {
                         textToShowStop = currentUiState.currentSetupStop.name
                     }
+
                     if (currentUiState.currentSetupBusline?.name != null) {
-                        textToShowBusLine = currentUiState.currentSetupBusline.name
+                        textToShowBusLine = currentUiState.currentSetupBusline.toString()
                     }
                     if (currentUiState.currentSetupDepartureTime?.toString() != null) {
                         textToShowDeparturetime =
