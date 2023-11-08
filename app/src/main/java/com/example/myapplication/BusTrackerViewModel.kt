@@ -62,7 +62,7 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-    fun updateCurrentDirection(direction: com.example.myapplication.data.Direction){
+    fun updateCurrentDirection(direction: Boolean){
         _uiState.update { currentState ->
             currentState.copy(
                 currentSetupDirection = direction
