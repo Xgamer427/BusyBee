@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.myapplication.data.BusTrackerUiState
+import kotlinx.android.synthetic.main.fragment_selection_page.btnCreateNotification
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBuslineSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectStopSelection
@@ -118,8 +119,12 @@ class SelectionPage : Fragment() {
                 commit()
             }
         }
+
+        btnCreateNotification.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()?.apply {
+                Log.d("Tim", "Create Notification has been clicked.")
+            }
+        }
         super.onViewCreated(view, savedInstanceState)
     }
-
-
 }
