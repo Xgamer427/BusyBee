@@ -74,15 +74,6 @@ class BuslineSelectionPage : Fragment() {
             )
         }
 
-
-
-        if (con != null) {
-
-        }
-
-
-
-
         actvBuslineSelection.setOnItemClickListener { parent, view, position, id ->
             selectedBusline = parent.getItemAtPosition(position) as Busline
             btnSaveBuslineSelection.isEnabled = true
