@@ -13,14 +13,6 @@ data class BusTrackerNotification(
     val timePicked: DepartureTime,
     val buffertime: Int = 0,
     val additionalTime: Int = 0,
-
-
-    /*val currentSetupStop: Stop? = null,
-    val currentSetupBusline: Busline? = null,
-
-    val currentSetupDepartureTime: DepartureTime? = null,
-    val currentSetupBuffertime: Int = 0,
-    val currentSetupAdditionalTime: Int = 0,*/
 ) {
 
 
