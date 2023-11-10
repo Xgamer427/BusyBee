@@ -11,10 +11,6 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class DepartureTimeUnitTest {
-    @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
-    }
 
     @Test
     fun testHoursPlus(){
@@ -71,4 +67,34 @@ class DepartureTimeUnitTest {
         assertFalse(d<c)
         assertFalse(d>c)
     }
+
+    @Test
+    fun testmultiplePlusMinutes(){
+        val b = DepartureTime(12,10)
+        val c = b.plusMinutes(20).plusMinutes(2)
+        assertEquals("10+20+2 minutes is 32 minutes", 32, b.min)
+        assertEquals("10+20+2 minutes is 32 minutes even in stack", 32, c.min)
+    }
+
+    @Test
+    fun testmultipleMinusMinutes(){
+        val b = DepartureTime(12,10)
+        val c = b.minusMinutes(3)
+        assertEquals("10-3 minutes is 7 minutes", 7, b.min)
+        assertEquals("10-3 minutes should not change hour", 12, b.hour)
+
+        assertEquals("10-3 minutes is 7 minutes even in stack", 7, c.min)
+        assertEquals("10-3 minutes should not change hour", 12, c.hour)
+
+        val d = DepartureTime(12,10)
+        val e = d.minusMinutes(6).minusMinutes(6)
+        assertEquals("12:10 - 12 minutes should be 11:58", 58, d.min)
+        assertEquals("12:10 - 12 minutes should be 11:58 even in stack", 58, e.min)
+
+        val f = DepartureTime(0,10)
+        val g = f.minusMinutes(12)
+        assertEquals("0:10  is 12 minutes should be 23:58", DepartureTime(23,58), f)
+        assertEquals("12:10 minutes is 12 minutes should be 23:58 even in stack", DepartureTime(23,58), g)
+    }
+
 }

@@ -30,6 +30,8 @@ data class BusTrackerNotification(
 
             var realDeptimeOfStop = it.realDepTimes[indexIfStopInBusLine]
 
+
+
             if(it.buslineServed == busline && it.directionArrayAscendant == directionArrayAscendant && timePicked < realDeptimeOfStop){
                 var diffTime = abs((timePicked.hour*60 + timePicked.min) - (realDeptimeOfStop.hour*60 + realDeptimeOfStop.min))
                 if(smallestDiffBetweenPickedAndRealDep<0 || diffTime<smallestDiffBetweenPickedAndRealDep){
@@ -49,6 +51,7 @@ data class BusTrackerNotification(
 
     //TODO handle/change that getRealDepartureTIme returns null if the best bus drives at next day
     fun getTimeToGetReady(): DepartureTime?{
+        Log.d("Notification", "Real departureTIme" + getRealDepartureTime())
         return getRealDepartureTime()?.minusMinutes(buffertime)?.minusMinutes(additionalTime) //TODO what if no bus for this time found
     }
 }
@@ -81,8 +84,13 @@ data class DepartureTime(
 
     fun minusMinutes(minusMin: Int): DepartureTime {
         val newMin: Int = min - minusMin
-        minusHours((newMin/60)+1)
-        min = 60+((newMin)%60)
+        if(newMin<0){
+            minusHours((newMin/60)+1)
+            min = 60+((newMin)%60)
+        }else{
+            min = newMin
+        }
+
         return this
     }
 
@@ -157,7 +165,7 @@ data class Bus(
     val plannedDepTimes: List<DepartureTime>,//gives the departure times for the stops of the buslineServed in the order of the stops in buslineServed (exaple plannedDepTime[0] is departure for buslineServer.stops[0]. This not depends on directionArrayAscendant
     val directionArrayAscendant : Boolean
 ){
-    val realDepTimes: List<DepartureTime>
+    public var realDepTimes: MutableList<DepartureTime>
     // initializer block
     init {
         if(buslineServed.stops.size != plannedDepTimes.size){
@@ -166,7 +174,6 @@ data class Bus(
         realDepTimes = mutableListOf()
         val random = Random
         plannedDepTimes.forEach {
-            //TODO create realDepTimes
 
             var realDepTime: DepartureTime = it.clone()
             realDepTime.plusMinutes(random.nextInt(0, 2 + 1))
@@ -190,6 +197,10 @@ data class Bus(
         var result = longditude.hashCode()
         result = 31 * result + latitude.hashCode()
         return result
+    }
+
+    fun myToString() : String{
+        return toString() + " realDepartureTimes: " + realDepTimes
     }
 }
 

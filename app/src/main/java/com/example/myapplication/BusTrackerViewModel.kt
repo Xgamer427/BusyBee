@@ -22,6 +22,14 @@ class BusTrackerViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(BusTrackerUiState())
     val uiState: StateFlow<BusTrackerUiState> = _uiState.asStateFlow()
 
+    fun updateNotificationArray(newNotificationArray: Array<BusTrackerNotification>){
+        _uiState.update { currentState ->
+            currentState.copy(
+                notificationArray = newNotificationArray
+            )
+        }
+    }
+
     fun updateCurrentSetupStop(stop: Stop){
         _uiState.update { currentState ->
             currentState.copy(

@@ -37,14 +37,14 @@ class BusDataSimulation {
     private val buses:List<Bus> = mutableListOf(
         Bus(0,0, "TestBus", buslines[0],
             mutableListOf(
-                DepartureTime(12,10),
-                DepartureTime(12,12),
-                DepartureTime(12,14)
+                DepartureTime(14,40),
+                DepartureTime(14,46),
+                DepartureTime(14,47)
             ),
             true
         ),
 
-        Bus(0,0, "TestBus", buslines[0],
+        Bus(0,0, "TestBus", buslines[1],
             mutableListOf(
                 DepartureTime(12,14),
                 DepartureTime(12,12),
