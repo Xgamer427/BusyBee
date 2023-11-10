@@ -23,11 +23,6 @@ class BusDataSimulation {
         Stop(0,0,"Stop12")
     )
 
-//    private val busses = arrayOf<Bus>(
-//        Bus(0, 0, "Bus1", stops[0], stops[1], 5),
-//        Bus(5, 5, "Bus2", stops[1], stops[0], 5)
-//    )
-
     private val buslines:List<Busline> = mutableListOf(
         Busline( "Test0", stops.slice(0..2)),
         Busline( "Test1", stops.slice(1..3)),
