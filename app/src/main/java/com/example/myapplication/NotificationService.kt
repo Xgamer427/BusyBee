@@ -76,7 +76,6 @@ class NotificationService() : Service() {
 
     fun initializeTimerTask() {
         timerTask = object : TimerTask() {
-            @RequiresApi(Build.VERSION_CODES.O)
             override fun run() {
                 //use a handler to run a toast that shows the current timestamp
                 handler.post(Runnable { //TODO CALL NOTIFICATION FUNC

@@ -1,14 +1,12 @@
 package com.example.myapplication
 
+import com.example.myapplication.Simulation.BusDataSimulation
+import com.example.myapplication.Simulation.RealBusDataSimulation
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.DepartureTime
 import org.junit.Assert
-import org.junit.Before
 import org.junit.BeforeClass
 import org.junit.Test
-import java.time.Clock
-import java.time.Instant
-import java.time.ZoneOffset
 
 class BusTrackerNotificationTest {
     //Setup Notification for test
@@ -46,14 +44,14 @@ class BusTrackerNotificationTest {
     fun getRealDepartureTimeTest(){
 
         val departureTime = notificationToTest.getRealDepartureTime()
-        Assert.assertEquals(departureTime, DepartureTime(12,11))
+        Assert.assertEquals(busToUse.realDepTimes[0], departureTime)
     }
 
 
     @Test
     fun getTimeToGetReadyTest() {
         val departureTime = notificationToTest.getTimeToGetReady()
-        Assert.assertEquals(DepartureTime(12,9), departureTime)
+        Assert.assertEquals(busToUse.realDepTimes[0].minusMinutes(notificationToTest.additionalTime).minusMinutes(notificationToTest.buffertime), departureTime)
     }
 
 

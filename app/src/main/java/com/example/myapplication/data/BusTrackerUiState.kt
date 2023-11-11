@@ -1,5 +1,6 @@
 package com.example.myapplication.data
 
+import TimeMachine
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -18,19 +19,17 @@ data class BusTrackerUiState(
 
     private val TAG = "Notification"
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun getNofiticationNeeded(): List<BusTrackerNotification>{
         val listToReturn : MutableList<BusTrackerNotification> = mutableListOf()
-        val currentTimeStamp = LocalDateTime.now()
-        //Log.d("Leo", currentTimeStamp.toString())
+        val currentTimeStamp = TimeMachine.now()
         val currentTimeInDepartureTime = (DepartureTime(currentTimeStamp.hour, currentTimeStamp.minute))
 
         var notificationIndex = 0
-        //Log.d(TAG, this.toString())
-         notificationArray.forEach {
-             Log.d(TAG, "Notification with index ${notificationIndex} has timeToGetReady of ${it.getTimeToGetReady()}")
 
-             if(it.getTimeToGetReady() != null && it.getTimeToGetReady()!! < currentTimeInDepartureTime){
+         notificationArray.forEach {
+
+
+             if(!it.notificationDone && it.getTimeToGetReady() != null && it.getTimeToGetReady()!! <= currentTimeInDepartureTime){
                  listToReturn.add(it)
              }
              notificationIndex++

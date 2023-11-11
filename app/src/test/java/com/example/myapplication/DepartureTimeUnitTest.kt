@@ -26,19 +26,21 @@ class DepartureTimeUnitTest {
     @Test
     fun testMinPlus(){
         val a = DepartureTime(12,10)
-        a.plusMinutes(10)
-        assertEquals("10+10 min is 20 min", 20, a.min)
-        assertEquals("10+10 min should not change the hours", 12, a.hour)
+        val aa = a.plusMinutes(10)
+        assertEquals("Base object not change", DepartureTime(12,10), a)
+        assertEquals("10+10 min is 20 min", DepartureTime(12,20), aa)
+
 
         val b = DepartureTime(12,10)
-        b.plusMinutes(50)
-        assertEquals("12:10 plus 50 min should be 13:00", 13, b.hour)
-        assertEquals("12:10 plus 50 min should be 13:00", 0, b.min)
+        val bb = b.plusMinutes(50)
+        assertEquals("Base object not change", DepartureTime(12,10), b)
+        assertEquals("12:10 plus 50 min is 13:00 min", DepartureTime(13,0), bb)
 
         val c = DepartureTime(23,59)
-        c.plusMinutes(70)
-        assertEquals("12:10 plus 50 min should be 13:00", 1, c.hour)
-        assertEquals("12:10 plus 50 min should be 13:00", 9, c.min)
+        val cc = c.plusMinutes(70)
+        assertEquals("Base object not change", DepartureTime(23,59), c)
+        assertEquals("23:59 plus 70 min is 1:09 min", DepartureTime(1,9), cc)
+
     }
 
     @Test
@@ -72,7 +74,7 @@ class DepartureTimeUnitTest {
     fun testmultiplePlusMinutes(){
         val b = DepartureTime(12,10)
         val c = b.plusMinutes(20).plusMinutes(2)
-        assertEquals("10+20+2 minutes is 32 minutes", 32, b.min)
+        assertEquals("Base time object not changes", 10, b.min)
         assertEquals("10+20+2 minutes is 32 minutes even in stack", 32, c.min)
     }
 
@@ -80,20 +82,22 @@ class DepartureTimeUnitTest {
     fun testmultipleMinusMinutes(){
         val b = DepartureTime(12,10)
         val c = b.minusMinutes(3)
-        assertEquals("10-3 minutes is 7 minutes", 7, b.min)
-        assertEquals("10-3 minutes should not change hour", 12, b.hour)
+        assertEquals("Base time object not changes", 10, b.min)
+        assertEquals("Base time object not changes", 12, b.hour)
 
-        assertEquals("10-3 minutes is 7 minutes even in stack", 7, c.min)
+        assertEquals("10-3 minutes is 7 minutes", 7, c.min)
         assertEquals("10-3 minutes should not change hour", 12, c.hour)
 
         val d = DepartureTime(12,10)
         val e = d.minusMinutes(6).minusMinutes(6)
-        assertEquals("12:10 - 12 minutes should be 11:58", 58, d.min)
+        assertEquals("Base time object not changes", 10, d.min)
+        assertEquals("Base time object not changes", 12, d.hour)
+        assertEquals("12:10 - 12 minutes should be 11:58 even in stack", 11, e.hour)
         assertEquals("12:10 - 12 minutes should be 11:58 even in stack", 58, e.min)
 
         val f = DepartureTime(0,10)
         val g = f.minusMinutes(12)
-        assertEquals("0:10  is 12 minutes should be 23:58", DepartureTime(23,58), f)
+        assertEquals("Base time object not changes", DepartureTime(0,10), f)
         assertEquals("12:10 minutes is 12 minutes should be 23:58 even in stack", DepartureTime(23,58), g)
     }
 

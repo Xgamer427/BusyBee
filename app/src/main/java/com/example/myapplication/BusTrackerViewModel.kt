@@ -87,4 +87,10 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
+    fun setNotificationDone(listOfNotitications: List<BusTrackerNotification>) {
+        listOfNotitications.forEach {
+            it.notificationDone = true
+        }
+    }
+
 }
