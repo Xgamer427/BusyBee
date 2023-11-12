@@ -15,12 +15,14 @@ class DepartureTimeUnitTest {
     @Test
     fun testHoursPlus(){
         val a = DepartureTime(12,10)
-        a.plusHours(10)
-        assertEquals("12+10 hours is 22 hours", 22, a.hour)
+        val aa = a.plusHours(10)
+        assertEquals("Base object should be same", DepartureTime(12,10), a)
+        assertEquals("12.10 + 10 hours is 22.10 hours", DepartureTime(22,10), aa)
 
         val b = DepartureTime(12,10)
-        b.plusHours(20)
-        assertEquals("12+20 hours is 8 hours", 8, b.hour)
+        val bb = b.plusHours(20)
+        assertEquals("Base object should be same", DepartureTime(12,10), b)
+        assertEquals("12+20 hours is 8 hours", DepartureTime(8,10), bb)
     }
 
     @Test
@@ -47,12 +49,14 @@ class DepartureTimeUnitTest {
     fun CloneTest(){
         val c = DepartureTime(23,59)
 
-        val clone = c.clone()
+        var clone = c.clone()
         assertTrue("Clone should be same as time cloned from",c == clone)
         assertEquals("Clone should have same minutes", 23, c.hour)
         assertEquals("Clone should have same hours",59, c.min)
 
-        clone.plusMinutes(10)
+        assertTrue("After change clone not should be the same",c == clone)
+
+        clone = clone.plusMinutes(10)
         assertTrue("After change clone not should be the same",c != clone)
     }
 
