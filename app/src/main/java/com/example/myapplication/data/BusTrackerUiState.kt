@@ -32,4 +32,16 @@ data class BusTrackerUiState(
         return listToReturn
     }
 
+    override fun toString(): String {
+        var returnString: String = ""
+
+        returnString += currentSetupStop.toString()
+        returnString += currentSetupBusline.toString()
+        returnString += currentSetupBuffertime.toString()
+        returnString += currentSetupDirection.toString()
+        returnString += currentSetupAdditionalTime.toString()
+
+        return returnString
+    }
+
 }

@@ -1,11 +1,6 @@
 package com.example.myapplication
 
-import android.os.Build
-import android.util.Log
-import androidx.annotation.RequiresApi
-import android.graphics.Path.Direction
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.BusTrackerUiState
 import com.example.myapplication.data.Busline
@@ -15,8 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class BusTrackerViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(BusTrackerUiState())
@@ -70,11 +63,18 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-
     fun updateCurrentBusline(busline: Busline){
         _uiState.update { currentState ->
             currentState.copy(
                 currentSetupBusline = busline
+            )
+        }
+    }
+
+    fun updateNotificationArray(busTrackerNotification : BusTrackerNotification){
+        _uiState.update { currentState ->
+            currentState.copy(
+            notificationArray = _uiState.value.notificationArray.plus(busTrackerNotification)
             )
         }
     }

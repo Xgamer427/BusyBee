@@ -52,12 +52,9 @@ class MainActivity : FragmentActivity() {
 
                         nm.notify(1, notification)
                     }
-
                     sleep(10000)
                 }
-
             }
         }.start()
     }
-
 }

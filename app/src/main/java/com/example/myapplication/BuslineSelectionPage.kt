@@ -50,6 +50,7 @@ class BuslineSelectionPage : Fragment() {
         var filteredBuslines: List<Busline> = emptyList()
         var filteredBuslinesNameArray = arrayListOf<String>()
 
+        //Filter the Buslines if a stop is selected
         if(buslines != null && currentStop != null){
             filteredBuslines = buslines.filter { busline: Busline ->
                 busline.stops.contains(currentStop)
@@ -91,7 +92,6 @@ class BuslineSelectionPage : Fragment() {
             if (checkedRadioButton != null) {
                 checkedText = checkedRadioButton!!.text.toString()
                 Log.d("Tim", checkedText!!)
-                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupDirection(checkedText.equals("DirectionA"))
                 Log.d("ViewModel", model.uiState.value.toString())
             }
@@ -100,17 +100,13 @@ class BuslineSelectionPage : Fragment() {
         //OnClick for button to save selected bus
         btnSaveBuslineSelection.setOnClickListener {
             Log.d("Tim", "Clicked")
-            if(checkedText==null){
+            if(checkedText == null){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupDirection(true)
-                Log.d("ViewModel", model.uiState.value.toString())
             }
-            val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-
             model.updateCurrentBusline(selectedBusline!!)
             activity?.supportFragmentManager?.popBackStack()
         }
-
         super.onViewCreated(view, savedInstanceState)
         }
     }

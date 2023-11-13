@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.data.BusTrackerNotification
 import androidx.core.widget.addTextChangedListener
@@ -78,7 +79,6 @@ class SelectionPage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-
         btnSelectStopSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragmentContainer, StopSelectionPage())
@@ -121,9 +121,32 @@ class SelectionPage : Fragment() {
         }
 
         btnCreateNotification.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.apply {
-                Log.d("Tim", "Create Notification has been clicked.")
+            val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+            //Check if the user entered everyting correctly
+            //Das if Statement muss true sein, wenn alles != null ist
+            if(model.uiState.value.currentSetupStop != null &&
+                model.uiState.value.currentSetupBusline != null &&
+                model.uiState.value.directionArrayAscendant != null &&
+                model.uiState.value.currentSetupDepartureTime != null &&
+                model.uiState.value.currentSetupBuffertime != null &&
+                model.uiState.value.currentSetupDirection != null)
+            {
+                Toast.makeText(context, "All values entered", Toast.LENGTH_SHORT).show()
+                val newNotification = BusTrackerNotification(
+                    model.uiState.value.currentSetupStop!!,
+                    model.uiState.value.currentSetupBusline!!,
+                    model.uiState.value.directionArrayAscendant,
+                    model.uiState.value.currentSetupDepartureTime!!,
+                    model.uiState.value.currentSetupBuffertime,
+                    model.uiState.value.currentSetupAdditionalTime
+                )
+                model.updateNotificationArray(newNotification)
+            } else {
+                Toast.makeText(context, "Put in every Value", Toast.LENGTH_SHORT).show()
+                //put the currentstates into a new Notification
             }
+            val busTrackerUiState = BusTrackerUiState()
+            Log.d("Tim", busTrackerUiState.currentSetupStop.toString())
         }
         super.onViewCreated(view, savedInstanceState)
     }
