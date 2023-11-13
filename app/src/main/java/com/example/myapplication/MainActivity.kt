@@ -25,17 +25,18 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Log.d("Timers", "onPause")
-        val intent = Intent(this, NotificationService::class.java);
+
+
+        /*val intent = Intent(this, NotificationService::class.java);
 
         val viewModelJson:String = Gson().toJson(viewModel.uiState.value)
         intent.putExtra("viewModelUIState",viewModelJson)
         startService(intent);
-
+        */
         object : Thread() {
             override fun run() {
                 //Setup test NotificationList
-                //val currentUIState = viewModel.uiState.value
+                /*
                 viewModel.updateNotificationArray(arrayOf<BusTrackerNotification>(
                     BusTrackerNotification(
                         BusDataSimulation.getInstance().getStops()[0],
@@ -53,9 +54,8 @@ class MainActivity : FragmentActivity() {
                         1,
                         1
                     )
-                ))
+                ))*/
                 while(true){
-                    //TODO notification to right points in app
                     val listOfNotitications : List<BusTrackerNotification> = viewModel.uiState.value.getNofiticationNeeded()
                     Log.d(TAG, "NotificationToTrigger: " + listOfNotitications)
                     Log.d(TAG, "Bus0 " + BusDataSimulation.getBusses()[0].myToString())
