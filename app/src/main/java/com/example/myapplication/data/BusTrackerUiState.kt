@@ -10,7 +10,6 @@ data class BusTrackerUiState(
     val notificationArray: Array<BusTrackerNotification> = arrayOf<BusTrackerNotification>(),
     val currentSetupStop: Stop? = null,
     val currentSetupBusline: Busline? = null,
-    val directionArrayAscendant : Boolean? = null,
     val currentSetupDepartureTime: DepartureTime? = null,
     val currentSetupBuffertime: Int = 0,
     val currentSetupAdditionalTime: Int = 0,
@@ -35,11 +34,13 @@ data class BusTrackerUiState(
     override fun toString(): String {
         var returnString: String = ""
 
-        returnString += currentSetupStop.toString()
-        returnString += currentSetupBusline.toString()
-        returnString += currentSetupBuffertime.toString()
-        returnString += currentSetupDirection.toString()
-        returnString += currentSetupAdditionalTime.toString()
+        returnString += "Stop: " + currentSetupStop.toString() + "\n"
+        returnString += "Busline: " + currentSetupBusline.toString() + "\n"
+        returnString += "Buffertime: $currentSetupBuffertime\n"
+        returnString += "Direction: " + currentSetupDirection.toString() + "\n"
+        returnString += "Addtime: $currentSetupAdditionalTime\n"
+        returnString += "DepTime: " + currentSetupDepartureTime.toString() + "\n"
+        returnString += "NotArray: " + notificationArray.joinToString() + "\n"
 
         return returnString
     }
