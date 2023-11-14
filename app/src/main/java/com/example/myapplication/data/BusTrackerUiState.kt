@@ -1,5 +1,6 @@
 package com.example.myapplication.data
 
+import TimeMachine
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -16,17 +17,22 @@ data class BusTrackerUiState(
     val currentSetupDirection: Boolean? = null
 ) {
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    private val TAG = "Notification"
+
     fun getNofiticationNeeded(): List<BusTrackerNotification>{
         val listToReturn : MutableList<BusTrackerNotification> = mutableListOf()
-        val currentTimeStamp = LocalDateTime.now()
-        Log.d("Leo", currentTimeStamp.toString())
+        val currentTimeStamp = TimeMachine.now()
         val currentTimeInDepartureTime = (DepartureTime(currentTimeStamp.hour, currentTimeStamp.minute))
 
+        var notificationIndex = 0
+
          notificationArray.forEach {
-             if(it.getTimeToGetReady() != null && it.getTimeToGetReady()!! < currentTimeInDepartureTime){
+
+
+             if(!it.notificationDone && it.getTimeToGetReady() != null && it.getTimeToGetReady()!! <= currentTimeInDepartureTime){
                  listToReturn.add(it)
              }
+             notificationIndex++
          }
         return listToReturn
     }

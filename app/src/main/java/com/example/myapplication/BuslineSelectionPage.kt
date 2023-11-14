@@ -10,17 +10,14 @@ import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.myapplication.data.BusTrackerUiState
+import com.example.myapplication.Simulation.BusDataSimulation
+import com.example.myapplication.Simulation.RealBusDataSimulation
 import com.example.myapplication.data.Busline
 
 import com.example.myapplication.data.Stop
-import com.example.myapplication.databinding.FragmentBuslineselectionPageBinding
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 class BuslineSelectionPage : Fragment() {
 

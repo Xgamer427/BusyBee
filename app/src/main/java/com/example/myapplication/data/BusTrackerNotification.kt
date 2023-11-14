@@ -1,7 +1,8 @@
 package com.example.myapplication.data
 
-import android.util.Log
-import com.example.myapplication.BusDataSimulation
+import android.app.Notification
+import com.example.myapplication.Simulation.BusDataSimulation
+import com.example.myapplication.Simulation.RealBusDataSimulation
 import java.lang.Math.abs
 import kotlin.random.Random
 
@@ -13,17 +14,13 @@ data class BusTrackerNotification(
     val timePicked: DepartureTime,
     val buffertime: Int = 0,
     val additionalTime: Int = 0,
-
-
-    /*val currentSetupStop: Stop? = null,
-    val currentSetupBusline: Busline? = null,
-
-    val currentSetupDepartureTime: DepartureTime? = null,
-    val currentSetupBuffertime: Int = 0,
-    val currentSetupAdditionalTime: Int = 0,*/
+    var notificationDone: Boolean = false
 ) {
 
+    val datasimulation: BusDataSimulation = RealBusDataSimulation()
+    init {
 
+    }
     fun getRealDepartureTime(): DepartureTime? {
         var indexIfStopInBusLine: Int = 0
         for (stopIter: Stop in busline.stops) {
@@ -37,6 +34,8 @@ data class BusTrackerNotification(
         BusDataSimulation.getInstance().getBusses().forEach {
 
             var realDeptimeOfStop = it.realDepTimes[indexIfStopInBusLine]
+
+
 
             if(it.buslineServed == busline && it.directionArrayAscendant == directionArrayAscendant && timePicked < realDeptimeOfStop){
                 var diffTime = abs((timePicked.hour*60 + timePicked.min) - (realDeptimeOfStop.hour*60 + realDeptimeOfStop.min))
@@ -57,17 +56,18 @@ data class BusTrackerNotification(
 
     //TODO handle/change that getRealDepartureTIme returns null if the best bus drives at next day
     fun getTimeToGetReady(): DepartureTime?{
+        //Log.d("Notification", "Real departureTIme" + getRealDepartureTime())
         return getRealDepartureTime()?.minusMinutes(buffertime)?.minusMinutes(additionalTime) //TODO what if no bus for this time found
     }
 }
 
 data class DepartureTime(
-    var hour: Int = 0,
-    var min: Int = 0
+    val hour: Int = 0,
+    val min: Int = 0
 ): Comparable<DepartureTime>{
     init {
         if(hour<0 || hour>23 || min<0 || min>59){
-            throw Exception("Values are not in time boundaries")
+            throw Exception("Values are not in time boundaries ${hour}, ${min}")
         }
 
     }
@@ -76,27 +76,37 @@ data class DepartureTime(
     }
 
     fun plusMinutes(plusMin: Int): DepartureTime{
+
         val newMin: Int = min + plusMin
-        plusHours(newMin/60)
-        min = newMin%60
-        return this
+        val minForNewTime: Int = newMin%60
+        val timeForNewHours: DepartureTime = plusHours(newMin/60)
+        return DepartureTime(timeForNewHours.hour, minForNewTime)
     }
 
     fun plusHours(plusH: Int) : DepartureTime{
-        hour = (hour+plusH)%24
-        return this
+        val newhour = (hour+plusH)%24
+        return DepartureTime(newhour, this.min)
     }
 
     fun minusMinutes(minusMin: Int): DepartureTime {
-        val newMin: Int = min - minusMin
-        minusHours((newMin/60)+1)
-        min = 60+((newMin)%60)
-        return this
+        var newMin: Int = min - minusMin
+        var newHours = this.hour
+
+        if(newMin<0){
+            newHours = minusHours(abs(newMin/60)+1).hour
+            newMin = 60+((newMin)%60)
+        }
+
+        return DepartureTime(newHours, newMin)
     }
 
-    private fun minusHours(minusH: Int) {
-        val newH: Int = hour - minusH
-        hour = 24+((newH)%24)
+    private fun minusHours(minusH: Int): DepartureTime {
+        var newH: Int = hour - minusH
+        if(newH<0){
+            newH = 24+((newH)%24)
+        }
+
+        return DepartureTime(newH,this.min)
     }
 
     fun clone(): DepartureTime{
@@ -165,7 +175,7 @@ data class Bus(
     val plannedDepTimes: List<DepartureTime>,//gives the departure times for the stops of the buslineServed in the order of the stops in buslineServed (exaple plannedDepTime[0] is departure for buslineServer.stops[0]. This not depends on directionArrayAscendant
     val directionArrayAscendant : Boolean
 ){
-    val realDepTimes: List<DepartureTime>
+    public var realDepTimes: MutableList<DepartureTime>
     // initializer block
     init {
         if(buslineServed.stops.size != plannedDepTimes.size){
@@ -174,7 +184,6 @@ data class Bus(
         realDepTimes = mutableListOf()
         val random = Random
         plannedDepTimes.forEach {
-            //TODO create realDepTimes
 
             var realDepTime: DepartureTime = it.clone()
             realDepTime.plusMinutes(random.nextInt(0, 2 + 1))
@@ -198,6 +207,10 @@ data class Bus(
         var result = longditude.hashCode()
         result = 31 * result + latitude.hashCode()
         return result
+    }
+
+    fun myToString() : String{
+        return toString() + " realDepartureTimes: " + realDepTimes
     }
 }
 

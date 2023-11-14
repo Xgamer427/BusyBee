@@ -10,8 +10,6 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
-import androidx.annotation.RequiresApi
-import androidx.core.app.NotificationCompat
 import com.example.myapplication.data.BusTrackerUiState
 import com.google.gson.Gson
 import java.util.Timer
@@ -76,11 +74,30 @@ class NotificationService() : Service() {
 
     fun initializeTimerTask() {
         timerTask = object : TimerTask() {
-            @RequiresApi(Build.VERSION_CODES.O)
             override fun run() {
                 //use a handler to run a toast that shows the current timestamp
                 handler.post(Runnable { //TODO CALL NOTIFICATION FUNC
+                    /*Log.d("Notification", "Notification")
+                    val notifTitle = "Get ready to get your Bus!"
+                    var notifText = "Test notificationtext"
 
+
+
+                    val followersChannel: NotificationChannel = NotificationChannel("1", "Name",
+                        NotificationManager.IMPORTANCE_DEFAULT)
+                    followersChannel.lightColor = Color.GREEN
+
+                    val nm: NotificationManager =  getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                    nm.createNotificationChannel(followersChannel)
+
+                    //viewModel.getNofiticationNeeded()
+                    var notification = NotificationCompat.Builder(applicationContext, "1")
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle(notifTitle)
+                        .setContentText(notifText)
+                        .build()
+
+                    nm.notify(1, notification)*/
                 })
             }
         }

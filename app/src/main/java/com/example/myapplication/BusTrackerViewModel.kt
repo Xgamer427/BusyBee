@@ -15,6 +15,14 @@ class BusTrackerViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(BusTrackerUiState())
     val uiState: StateFlow<BusTrackerUiState> = _uiState.asStateFlow()
 
+    fun updateNotificationArray(newNotificationArray: Array<BusTrackerNotification>){
+        _uiState.update { currentState ->
+            currentState.copy(
+                notificationArray = newNotificationArray
+            )
+        }
+    }
+
     fun updateCurrentSetupStop(stop: Stop){
         _uiState.update { currentState ->
             currentState.copy(
@@ -71,11 +79,19 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-    fun updateNotificationArray(busTrackerNotification : BusTrackerNotification){
+
+    fun updateNotificationArray(busTrackerNotification : BusTrackerNotification) {
         _uiState.update { currentState ->
             currentState.copy(
-            notificationArray = _uiState.value.notificationArray.plus(busTrackerNotification)
+                notificationArray = _uiState.value.notificationArray.plus(busTrackerNotification)
             )
+        }
+    }
+
+    fun setNotificationDone(listOfNotitications: List<BusTrackerNotification>) {
+        listOfNotitications.forEach {
+            it.notificationDone = true
+
         }
     }
 
