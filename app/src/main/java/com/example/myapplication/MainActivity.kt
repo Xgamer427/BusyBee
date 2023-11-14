@@ -36,8 +36,7 @@ class MainActivity : FragmentActivity() {
         object : Thread() {
             override fun run() {
                 //Setup test NotificationList
-                /*
-                viewModel.updateNotificationArray(arrayOf<BusTrackerNotification>(
+                /*viewModel.updateNotificationArray(arrayOf<BusTrackerNotification>(
                     BusTrackerNotification(
                         BusDataSimulation.getInstance().getStops()[0],
                         BusDataSimulation.getInstance().getBuslines()[0],
@@ -46,14 +45,7 @@ class MainActivity : FragmentActivity() {
                         1,
                         1
                         ),
-                    BusTrackerNotification(
-                        BusDataSimulation.getInstance().getStops()[0],
-                        BusDataSimulation.getInstance().getBuslines()[0],
-                        true,
-                        DepartureTime(10,10),
-                        1,
-                        1
-                    )
+
                 ))*/
                 while(true){
                     val listOfNotitications : List<BusTrackerNotification> = viewModel.uiState.value.getNofiticationNeeded()

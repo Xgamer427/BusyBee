@@ -23,7 +23,7 @@ class FakeBusDataSimulation : BusDataSimulation {
     private val buses:List<Bus> = mutableListOf(
         Bus(0,0, "TestBus", buslines[0],
             mutableListOf(
-                DepartureTime(12,2),
+                DepartureTime(10,2),
                 DepartureTime(12,4),
                 DepartureTime(12,6)
             ),
