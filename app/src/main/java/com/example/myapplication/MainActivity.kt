@@ -9,12 +9,18 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.app.NotificationCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.Simulation.RealBusDataSimulation
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.DepartureTime
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
+import androidx.navigation.ui.NavigationUI
+
 
 
 class MainActivity : FragmentActivity() {
@@ -25,6 +31,12 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val drawerLayout :DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.nav_host_fragment)
+
+        NavigationUI.setupWithNavController(navView, navController)
 
 
         /*val intent = Intent(this, NotificationService::class.java);
