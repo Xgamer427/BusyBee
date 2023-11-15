@@ -45,7 +45,6 @@ class DeparturetimeSelectionPage : Fragment() {
         }
 
         btnSaveDeparturetime.setOnClickListener {
-            Log.d("User", "Clicked")
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
             model.updateCurrentDeparturetime(selectedDeparturetime!!)
             activity?.supportFragmentManager?.popBackStack()

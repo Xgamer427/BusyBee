@@ -52,11 +52,7 @@ class BuslineSelectionPage : Fragment() {
             filteredBuslines = buslines.filter { busline: Busline ->
                 busline.stops.contains(currentStop)
             }
-            if(filteredBuslines.isEmpty()) {
-                Log.d("Tim", "filteredBuslines.isEmpty()")
-            }
-        } else {
-            Log.d("Tim", "Buslines or currentStop ist null")
+
         }
 
         filteredBuslines.forEach {
@@ -84,19 +80,16 @@ class BuslineSelectionPage : Fragment() {
         //Update current checked Button
         rgBuslineSelectionPage.setOnCheckedChangeListener { group, checkedId ->
             var checkedRadioButton = view.findViewById<RadioButton>(checkedId)
-            Log.d("Tim", "rgChangeListener")
+
             //Ensure that a RadioButton is checked
             if (checkedRadioButton != null) {
                 checkedText = checkedRadioButton!!.text.toString()
-                Log.d("Tim", checkedText!!)
                 model.updateCurrentSetupDirection(checkedText.equals("DirectionA"))
-                Log.d("ViewModel", model.uiState.value.toString())
             }
         }
 
         //OnClick for button to save selected bus
         btnSaveBuslineSelection.setOnClickListener {
-            Log.d("Tim", "Clicked")
             if(checkedText == null){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupDirection(true)
@@ -105,5 +98,5 @@ class BuslineSelectionPage : Fragment() {
             activity?.supportFragmentManager?.popBackStack()
         }
         super.onViewCreated(view, savedInstanceState)
-        }
     }
+}

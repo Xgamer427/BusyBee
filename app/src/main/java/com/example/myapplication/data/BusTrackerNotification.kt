@@ -17,8 +17,14 @@ data class BusTrackerNotification(
     var notificationDone: Boolean = false
 ) {
 
-    val datasimulation: BusDataSimulation = RealBusDataSimulation()
-    init {
+    override fun toString(): String {
+        return "BusTrackerNotification" + "\n" +
+                stop.name + "\n" +
+                busline.name + "\n" +
+                timePicked + "\n" +
+                buffertime + "\n" +
+                additionalTime + "\n" +
+                notificationDone + "\n" + "\n"
 
     }
     fun getRealDepartureTime(): DepartureTime? {

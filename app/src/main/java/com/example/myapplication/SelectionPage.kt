@@ -113,7 +113,6 @@ class SelectionPage : Fragment() {
 
         btnSelectDeparturetime.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                Log.d("Tim", "Clicked")
                 replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
                 addToBackStack(null)
                 commit()
@@ -125,7 +124,7 @@ class SelectionPage : Fragment() {
             //Check if the user entered everyting correctly
             //Das if Statement muss true sein, wenn alles != null ist
 
-            Log.d("Tim" ,(model.uiState.value.currentSetupDirection != null).toString() )
+
             if((model.uiState.value.currentSetupStop != null) &&
                 (model.uiState.value.currentSetupBusline != null) &&
                 (model.uiState.value.currentSetupDepartureTime != null) &&

@@ -40,13 +40,14 @@ class MainActivity : FragmentActivity() {
                 while(true){
                     val listOfNotitications : List<BusTrackerNotification> = viewModel.uiState.value.getNofiticationNeeded()
                     Log.d(TAG, "NotificationToTrigger: " + listOfNotitications)
-                    Log.d(TAG, "Bus0 " + BusDataSimulation.getBusses()[0].myToString())
                     if (!listOfNotitications.isEmpty()){
-                        val notifTitle = "Get ready to get your Bus!"
+                        var notifTitle = ""
                         var notifText = ""
                         if(listOfNotitications.size==1){
+                            notifTitle = "Get ready to get your Bus at "+ listOfNotitications[0].getRealDepartureTime() +"!"
                             notifText = "Get ready and start heading down to ${listOfNotitications[0].stop.name}"
                         }else{
+                            notifTitle = "Get ready to get your Bus!"
                             notifText += "Your got multiple notifications for "
                             listOfNotitications.forEach {
                                 notifText += "${it.stop.name}, "
@@ -55,7 +56,7 @@ class MainActivity : FragmentActivity() {
                         }
 
 
-                        val followersChannel: NotificationChannel = NotificationChannel("1", "Name",
+                        val followersChannel: NotificationChannel = NotificationChannel("1", "TestName",
                             NotificationManager.IMPORTANCE_DEFAULT)
                         followersChannel.lightColor = Color.GREEN
 
@@ -72,10 +73,6 @@ class MainActivity : FragmentActivity() {
                         nm.notify(1, notification)
                     }
                     viewModel.setNotificationDone(listOfNotitications)
-
-                        Log.d("NotificationDone", viewModel.uiState.value.toString())
-
-
                     sleep(10000)
                 }
             }
@@ -84,32 +81,26 @@ class MainActivity : FragmentActivity() {
         Log.d("uiStateJson","OnStart")
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val jsonStringUIState:String? = pref.getString("uiStateJson", null)
-        if (jsonStringUIState != null) {
-            Log.d("uiStateJson", jsonStringUIState)
-        }
         if(jsonStringUIState != null){
             val loadedUIState: JsonToSaveForPersistance = Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
-
-            Log.d("uiStateJson", loadedUIState.toString())
             viewModel.updateNotificationArray(loadedUIState.listOfNotification)
         }else{
             Log.d("uiStateJson", "loaded json is null")
         }
+        viewModel.uiState.value.notificationArray.forEach {
+            Log.d("uiStateJson", "Notifications Loaded \n" + it)
+        }
 
-
-
-        Log.d("uiStateJsonviewModel", viewModel.uiState.value.toString())
     }
 
     override fun onPause() {
         Log.d("uiStateJson", "OnPause")
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val edit = pref.edit()
-
         val uiStateJson:String = Gson().toJson(JsonToSaveForPersistance(viewModel.uiState.value.notificationArray))
         edit.putString("uiStateJson", uiStateJson)
         edit.commit()
-        Log.d("Saved", uiStateJson)
+        Log.d("Notifications Saved", uiStateJson)
         super.onPause()
     }
 }

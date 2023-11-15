@@ -35,7 +35,6 @@ class NotificationService() : Service() {
         startTimer()
         viewModelJson = intent?.getStringExtra("viewModelUIState")
         val uiState : BusTrackerUiState = Gson().fromJson(viewModelJson, BusTrackerUiState::class.java)
-        Log.d("afterJsonUIState", uiState.toString())
         return START_STICKY
     }
 
@@ -77,7 +76,7 @@ class NotificationService() : Service() {
             override fun run() {
                 //use a handler to run a toast that shows the current timestamp
                 handler.post(Runnable { //TODO CALL NOTIFICATION FUNC
-                    /*Log.d("Notification", "Notification")
+                    /*Log.d("Notification", "NotificationService run")
                     val notifTitle = "Get ready to get your Bus!"
                     var notifText = "Test notificationtext"
 
