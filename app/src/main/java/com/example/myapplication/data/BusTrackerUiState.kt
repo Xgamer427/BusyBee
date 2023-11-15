@@ -14,10 +14,11 @@ data class BusTrackerUiState(
     val currentSetupDepartureTime: DepartureTime? = null,
     val currentSetupBuffertime: Int = 0,
     val currentSetupAdditionalTime: Int = 0,
-    val currentSetupDirection: Boolean? = null
+    val currentSetupDirection: Boolean? = null,
+    private val TAG: String = "Notification"
 ) {
 
-    private val TAG = "Notification"
+
 
     fun getNofiticationNeeded(): List<BusTrackerNotification>{
         val listToReturn : MutableList<BusTrackerNotification> = mutableListOf()
@@ -37,7 +38,7 @@ data class BusTrackerUiState(
         return listToReturn
     }
 
-    override fun toString(): String {
+    fun toStringCustome(): String {
         var returnString: String = ""
 
         returnString += "Stop: " + currentSetupStop.toString() + "\n"

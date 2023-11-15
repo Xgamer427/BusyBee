@@ -91,7 +91,12 @@ class BusTrackerViewModel : ViewModel() {
     fun setNotificationDone(listOfNotitications: List<BusTrackerNotification>) {
         listOfNotitications.forEach {
             it.notificationDone = true
+        }
+    }
 
+    fun updateUIStateFromLoad(loadedUIState: BusTrackerUiState) {
+        _uiState.update {
+            loadedUIState
         }
     }
 
