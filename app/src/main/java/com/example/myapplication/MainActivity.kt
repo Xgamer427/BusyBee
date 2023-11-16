@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import OverviewFragment
 import android.app.ActionBar
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -55,15 +56,19 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.menu_item1 -> {
                     // Handle screen 1 navigation
-                    // Example: replace the fragment in the container
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, SelectionPage())
+                        .replace(R.id.fragment_container, OverviewFragment())
                         .commitNow()
                 }
 
                 R.id.menu_item2 -> {
                     // Handle screen 2 navigation
-                    // Example: replace the fragment in the container
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, SelectionPage())
+                        .commitNow()
+                }
+                R.id.menu_item3 -> {
+                    // Handle screen 3 navigation
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, SelectionPage())
                         .commitNow()
