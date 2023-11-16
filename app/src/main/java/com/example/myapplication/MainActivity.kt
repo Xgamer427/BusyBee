@@ -14,16 +14,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.NotificationCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.FragmentActivity
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
-import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.JsonToSaveForPersistance
-import com.example.myapplication.data.DepartureTime
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
-import androidx.navigation.ui.NavigationUI
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {

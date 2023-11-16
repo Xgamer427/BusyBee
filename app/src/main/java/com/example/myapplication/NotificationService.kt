@@ -40,16 +40,14 @@ class NotificationService() : Service() {
 
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val jsonStringUIState:String? = pref.getString("uiStateJson", null)
+        if(jsonStringUIState != null){
 
-
-        viewModelJsonString = intent?.getStringExtra("viewModelUIState")
-        if(viewModelJsonString == null){
+            val loadedNotificationArray : JsonToSaveForPersistance = Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
+            Log.e(TAG, loadedNotificationArray.toString())
+            var notificationArray : Array<BusTrackerNotification> = loadedNotificationArray.listOfNotification
+            lastBustrackerUIState = BusTrackerUiState(notificationArray = notificationArray)
 
         }
-        val loadedNotificationArray : JsonToSaveForPersistance = Gson().fromJson(viewModelJsonString, JsonToSaveForPersistance::class.java)
-        Log.e(TAG, loadedNotificationArray.toString())
-        var notificationArray : Array<BusTrackerNotification> = loadedNotificationArray.listOfNotification
-        lastBustrackerUIState = BusTrackerUiState(notificationArray = notificationArray)
         return START_STICKY
     }
 
