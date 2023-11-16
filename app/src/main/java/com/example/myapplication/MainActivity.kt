@@ -24,7 +24,7 @@ import com.google.gson.Gson
 import androidx.navigation.ui.NavigationUI
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navView: NavigationView
@@ -138,7 +138,6 @@ class MainActivity : FragmentActivity() {
         viewModel.uiState.value.notificationArray.forEach {
             Log.d("uiStateJson", "Notifications Loaded \n" + it)
         }
-
     }
 
     override fun onPause() {
