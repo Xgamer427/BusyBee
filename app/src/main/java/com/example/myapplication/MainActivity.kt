@@ -29,39 +29,31 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
         notificationThread.start()
 
-        Log.d("uiStateJson","OnStart")
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val jsonStringUIState:String? = pref.getString("uiStateJson", null)
         if(jsonStringUIState != null){
             val loadedUIState: JsonToSaveForPersistance = Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
             viewModel.updateNotificationArray(loadedUIState.listOfNotification)
-        }else{
-            Log.d("uiStateJson", "loaded json is null")
         }
+
+        var msg = "${viewModel.uiState.value.notificationArray.size} Notifications Loaded"
         viewModel.uiState.value.notificationArray.forEach {
-            Log.d("uiStateJson", "Notifications Loaded \n" + it)
+            msg = msg+ "\n $it"
         }
+        Log.d("uiStateJson", msg)
 
     }
 
     override fun onPause() {
-        Log.d("uiStateJson", "OnPause")
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val edit = pref.edit()
         val uiStateJson:String = Gson().toJson(JsonToSaveForPersistance(viewModel.uiState.value.notificationArray))
         edit.putString("uiStateJson", uiStateJson)
         edit.commit()
-        Log.d("Notifications Saved", uiStateJson)
-
 
         val intent = Intent(this, NotificationService::class.java)
-        val viewModelJson:String = Gson().toJson(JsonToSaveForPersistance(viewModel.uiState.value.notificationArray))
-        Log.d("ToPutInIntent", viewModelJson)
-        intent.putExtra("viewModelUIState",viewModelJson)
         startService(intent)
         super.onPause()
     }

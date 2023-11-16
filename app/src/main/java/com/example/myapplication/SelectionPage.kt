@@ -91,7 +91,7 @@ class SelectionPage : Fragment() {
             if(etBuffertime.text.toString() != ""){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupBuffertime(etBuffertime.text.toString().toInt())
-                Log.d("ViewModel", model.uiState.value.toString())
+
             }
         }
 
@@ -99,7 +99,7 @@ class SelectionPage : Fragment() {
             if(etAdditionalTime.text.toString() != ""){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupAdditionaltime(etAdditionalTime.text.toString().toInt())
-                Log.d("ViewModel", model.uiState.value.toString())
+
             }
         }
 
@@ -143,7 +143,7 @@ class SelectionPage : Fragment() {
                     model.uiState.value.currentSetupAdditionalTime
                 )
                 model.updateNotificationArray(newNotification)
-                Log.d("Tim", model.uiState.value.toString())
+
             } else {
                 Toast.makeText(context, "Put in every Value", Toast.LENGTH_SHORT).show()
             }

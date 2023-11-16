@@ -62,7 +62,7 @@ data class BusTrackerNotification(
 
     //TODO handle/change that getRealDepartureTIme returns null if the best bus drives at next day
     fun getTimeToGetReady(): DepartureTime?{
-        //Log.d("Notification", "Real departureTIme" + getRealDepartureTime())
+
         return getRealDepartureTime()?.minusMinutes(buffertime)?.minusMinutes(additionalTime) //TODO what if no bus for this time found
     }
 }

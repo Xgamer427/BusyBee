@@ -94,10 +94,4 @@ class BusTrackerViewModel : ViewModel() {
         }
     }
 
-    fun updateUIStateFromLoad(loadedUIState: BusTrackerUiState) {
-        _uiState.update {
-            loadedUIState
-        }
-    }
-
 }

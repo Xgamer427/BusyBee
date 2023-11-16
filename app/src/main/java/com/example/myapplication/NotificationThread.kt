@@ -16,11 +16,10 @@ class NotificationThread(
     private val TAG = "Notification"
 
     override fun run() {
-        Log.d("Runtime", "run")
-        //Setup test NotificationList
+
         while(true){
             val listOfNotitications : List<BusTrackerNotification> = mainActivity.viewModel.uiState.value.getNofiticationNeeded()
-            Log.d(TAG, "NotificationToTrigger: " + listOfNotitications)
+
             if (!listOfNotitications.isEmpty()){
                 var notifTitle = ""
                 var notifText = ""
@@ -53,7 +52,7 @@ class NotificationThread(
 
                 nm.notify(1, notification)
             }
-            //viewModel.setNotificationDone(listOfNotitications)
+            mainActivity.viewModel.setNotificationDone(listOfNotitications)
             Thread.sleep(10000)
         }
     }
