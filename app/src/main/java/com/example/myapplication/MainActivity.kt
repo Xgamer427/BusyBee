@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.app.ActionBar
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
@@ -8,15 +9,25 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.NotificationCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.JsonToSaveForPersistance
+import com.example.myapplication.data.DepartureTime
+import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
-
+import androidx.navigation.ui.NavigationUI
+import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : FragmentActivity() {
+
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
 
     private val viewModel: BusTrackerViewModel by viewModels()
 
@@ -24,6 +35,42 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, R.string.open, R.string.close
+        )
+
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navView.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item clicks here
+            when (menuItem.itemId) {
+                R.id.menu_item1 -> {
+                    // Handle screen 1 navigation
+                    // Example: replace the fragment in the container
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, SelectionPage())
+                        .commitNow()
+                }
+
+                R.id.menu_item2 -> {
+                    // Handle screen 2 navigation
+                    // Example: replace the fragment in the container
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, SelectionPage())
+                        .commitNow()
+                }
+            }
+
+            // Close the drawer after handling the click
+            drawerLayout.closeDrawers()
+            true
+        }
+
 
 
 
@@ -34,6 +81,7 @@ class MainActivity : FragmentActivity() {
         intent.putExtra("viewModelUIState",viewModelJson)
         startService(intent);
         */
+
         object : Thread() {
             override fun run() {
                 //Setup test NotificationList
