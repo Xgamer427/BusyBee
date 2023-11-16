@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.NotificationCompat
@@ -35,6 +36,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //For the Hamburger-Icon
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         drawerLayout = findViewById(R.id.drawer_layout)
         navView = findViewById(R.id.nav_view)
@@ -70,11 +75,7 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
-
-
-
-
-
+        
         /*val intent = Intent(this, NotificationService::class.java);
 
         val viewModelJson:String = Gson().toJson(viewModel.uiState.value)
@@ -149,5 +150,16 @@ class MainActivity : AppCompatActivity() {
         edit.commit()
         Log.d("Notifications Saved", uiStateJson)
         super.onPause()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, R.string.open, R.string.close
+        )
+
+        if (toggle.onOptionsItemSelected(item))
+            return true
+
+        return super.onOptionsItemSelected(item)
     }
 }
