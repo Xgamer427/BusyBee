@@ -35,7 +35,7 @@ class SelectionPage : Fragment() {
     ): View? {
 
         // Using Kotlin's lifecycleScope to perform asynchronous operations tied to the Fragment's lifecycle
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             // This block will execute when the Fragment is in the STARTED state
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 // Create an instance of a ViewModel called BusTrackerViewModel, which appears to be shared with the activity
@@ -81,7 +81,7 @@ class SelectionPage : Fragment() {
 
         btnSelectStopSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, StopSelectionPage())
+                replace(R.id.fragment_container, StopSelectionPage())
                 addToBackStack(null)
                 commit()
             }
@@ -105,8 +105,8 @@ class SelectionPage : Fragment() {
 
         btnSelectBuslineSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
-                replace(R.id.fragmentContainer, BuslineSelectionPage())
-                addToBackStack(null)
+                replace(R.id.fragment_container, BuslineSelectionPage())
+                addToBackStack("buslineSelection")
                 commit()
             }
         }
@@ -114,8 +114,8 @@ class SelectionPage : Fragment() {
         btnSelectDeparturetime.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 Log.d("Tim", "Clicked")
-                replace(R.id.fragmentContainer, DeparturetimeSelectionPage())
-                addToBackStack(null)
+                replace(R.id.fragment_container, DeparturetimeSelectionPage())
+                addToBackStack("DeparturetimeSelection")
                 commit()
             }
         }
