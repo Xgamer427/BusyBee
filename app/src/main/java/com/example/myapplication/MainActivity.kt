@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.fragment.app.FragmentActivity
 import com.example.myapplication.Simulation.BusDataSimulation
@@ -16,7 +17,7 @@ import com.example.myapplication.data.JsonToSaveForPersistance
 import com.google.gson.Gson
 
 
-class MainActivity : FragmentActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val viewModel: BusTrackerViewModel by viewModels()
 
@@ -90,7 +91,6 @@ class MainActivity : FragmentActivity() {
         viewModel.uiState.value.notificationArray.forEach {
             Log.d("uiStateJson", "Notifications Loaded \n" + it)
         }
-
     }
 
     override fun onPause() {
