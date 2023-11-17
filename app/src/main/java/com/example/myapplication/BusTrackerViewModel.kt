@@ -54,7 +54,7 @@ class BusTrackerViewModel : ViewModel() {
 
 
     fun addToNotificationArray(busTrackerNotification : BusTrackerNotification) {
-        notificationArray.plus(busTrackerNotification)
+        notificationArray = notificationArray.plus(busTrackerNotification)
     }
 
     fun setNotificationDone(listOfNotitications: List<BusTrackerNotification>) {

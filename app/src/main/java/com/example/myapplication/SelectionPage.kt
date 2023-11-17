@@ -165,7 +165,7 @@ class SelectionPage : Fragment() {
             )
             {
                 //put the currentstates into a new Notification
-                Toast.makeText(context, "All values entered", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Notification Saved", Toast.LENGTH_SHORT).show()
                 val newNotification = BusTrackerNotification(
                     model.currentSetupStop.value!!,
                     model.currentSetupBusline.value!!,
