@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSe
 
 class BuslineSelectionPage : Fragment() {
 
-    private val buslines= arrayOf("busline1", "busline2")
     private var selectedBusline: Busline? = null
     private var checkedText : String? = null
 
@@ -43,7 +42,7 @@ class BuslineSelectionPage : Fragment() {
         //model for Updating and reading the uiState
         val con = this.context
         val buslines = BusDataSimulation.getInstance().getBuslines()
-        val currentStop: Stop? = model.currentSetupStop
+        val currentStop: Stop? = model.currentSetupStop.value
         var filteredBuslines: List<Busline> = emptyList()
         var filteredBuslinesNameArray = arrayListOf<String>()
 

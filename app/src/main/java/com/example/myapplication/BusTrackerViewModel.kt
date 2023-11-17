@@ -1,7 +1,9 @@
 package com.example.myapplication
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.Busline
 import com.example.myapplication.data.DepartureTime
@@ -9,12 +11,25 @@ import com.example.myapplication.data.Stop
 
 class BusTrackerViewModel : ViewModel() {
 
-    var notificationArray: Array<BusTrackerNotification> = arrayOf<BusTrackerNotification>()
-    var currentSetupStop: Stop? = null
-    var currentSetupBusline: Busline? = null
-    var currentSetupDepartureTime: DepartureTime? = null
-    var currentSetupBuffertime: MutableLiveData<Int> = MutableLiveData<Int>()
+    var notificationArray: Array<BusTrackerNotification> = arrayOf()
+
+
+    private val _currentSetupStop: MutableLiveData<Stop?> = MutableLiveData<Stop?>()
+    val currentSetupStop: LiveData<Stop?>
+        get() = _currentSetupStop
+
+    private val _currentSetupBusline: MutableLiveData<Busline?> = MutableLiveData<Busline?>()
+    val currentSetupBusline: LiveData<Busline?>
+        get() = _currentSetupBusline
+
+    private val _currentSetupDepartureTime: MutableLiveData<DepartureTime?> = MutableLiveData<DepartureTime?>()
+    val currentSetupDepartureTime: LiveData<DepartureTime?>
+        get() = _currentSetupDepartureTime
+
+    var currentSetupBuffertime: Int = 0
+
     var currentSetupAdditionalTime: Int = 0
+
     var currentSetupDirection: Boolean? = null
 
     fun addToNotificationArray(newNotificationArray: Array<BusTrackerNotification>){
@@ -22,27 +37,19 @@ class BusTrackerViewModel : ViewModel() {
     }
 
     fun updateCurrentSetupStop(stop: Stop){
-        currentSetupStop = stop
+        _currentSetupStop.value = stop
     }
 
     fun updateCurrentSetupDirection(valueOfDirection: Boolean){
         currentSetupDirection = valueOfDirection
     }
 
-    fun updateCurrentSetupBuffertime(bufferTime:Int){
-        currentSetupBuffertime.value = bufferTime
-    }
-
-    fun updateCurrentSetupAdditionaltime(additionalTime: Int) {
-        currentSetupAdditionalTime = additionalTime
-    }
-
     fun updateCurrentDeparturetime(departureTime: DepartureTime){
-        currentSetupDepartureTime = departureTime
+        _currentSetupDepartureTime.value = departureTime
     }
 
     fun updateCurrentBusline(busline: Busline){
-        currentSetupBusline = busline
+        _currentSetupBusline.value = busline
     }
 
 
@@ -57,7 +64,9 @@ class BusTrackerViewModel : ViewModel() {
     }
 
     fun resetCurrentSetup() {
-        currentSetupBuffertime.value = 0
+        _currentSetupStop.value = null
+        _currentSetupBusline.value = null
+        _currentSetupDepartureTime.value = null
     }
 
     fun getNofiticationNeeded(): List<BusTrackerNotification>{
