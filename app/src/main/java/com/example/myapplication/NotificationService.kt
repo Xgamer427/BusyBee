@@ -11,6 +11,7 @@ import android.os.IBinder
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
+import com.example.myapplication.data.Bus
 import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.BusTrackerUiState
 import com.example.myapplication.data.JsonToSaveForPersistance
@@ -25,7 +26,7 @@ class NotificationService() : Service() {
     val TAG = "NotificationService"
     var Your_X_SECS = 5
 
-    var lastBustrackerUIState : BusTrackerUiState? = null
+    var lastBustrackerUIState : BusTrackerViewModel? = null
 
 
     override fun onBind(arg0: Intent?): IBinder? {
@@ -45,7 +46,8 @@ class NotificationService() : Service() {
             val loadedNotificationArray : JsonToSaveForPersistance = Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
             Log.e(TAG, loadedNotificationArray.toString())
             var notificationArray : Array<BusTrackerNotification> = loadedNotificationArray.listOfNotification
-            lastBustrackerUIState = BusTrackerUiState(notificationArray = notificationArray)
+            lastBustrackerUIState = BusTrackerViewModel()
+            lastBustrackerUIState!!.notificationArray = notificationArray
 
         }
         return START_STICKY

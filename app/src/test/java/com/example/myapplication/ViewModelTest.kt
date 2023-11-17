@@ -9,7 +9,6 @@ import org.junit.Assert
 import org.junit.BeforeClass
 import org.junit.Test
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class ViewModelTest {
 
@@ -26,7 +25,7 @@ private val TAG = "ViewModelTest"
 
             //Setup Viewmodel for test
 
-            viewModel.updateNotificationArray(arrayOf<BusTrackerNotification>(
+            viewModel.addToNotificationArray(arrayOf<BusTrackerNotification>(
                 BusTrackerNotification(
                     BusDataSimulation.getInstance().getStops()[0],
                     BusDataSimulation.getInstance().getBuslines()[0],
@@ -45,27 +44,27 @@ private val TAG = "ViewModelTest"
         var timeDate = LocalDateTime.parse("2018-12-30T12:00:00.00")
         TimeMachine.useFixedClockAt(timeDate)
 
-        var listOfNotitications : List<BusTrackerNotification> = viewModel.uiState.value.getNofiticationNeeded()
+        var listOfNotitications : List<BusTrackerNotification> = viewModel.getNofiticationNeeded()
         Assert.assertEquals(0, listOfNotitications.size)
 
 
         timeDate = LocalDateTime.parse("2018-12-30T12:01:00.00")
         TimeMachine.useFixedClockAt(timeDate)
 
-        listOfNotitications = viewModel.uiState.value.getNofiticationNeeded()
+        listOfNotitications = viewModel.getNofiticationNeeded()
         Assert.assertEquals(1, listOfNotitications.size)
     }
 
     @Test
     fun getRealDepartureTimeTest(){
-        val departureTime = viewModel.uiState.value.notificationArray[0].getRealDepartureTime()
+        val departureTime = viewModel.notificationArray[0].getRealDepartureTime()
         Assert.assertEquals(DepartureTime(12,3), departureTime)
     }
 
 
     @Test
     fun getTimeToGetReadyTest() {
-        val departureTime = viewModel.uiState.value.notificationArray[0].getTimeToGetReady()
+        val departureTime = viewModel.notificationArray[0].getTimeToGetReady()
         Assert.assertEquals(DepartureTime(12,1), departureTime)
     }
 

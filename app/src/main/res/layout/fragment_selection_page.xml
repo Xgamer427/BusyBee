@@ -135,7 +135,7 @@
             android:backgroundTint="@color/white"
             android:gravity="center_vertical"
             android:text=""
-            android:hint="insert buffer ..."
+            android:hint="buffer time ..."
             android:inputType="number"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -167,7 +167,7 @@
             android:backgroundTint="@color/white"
             android:gravity="center_vertical"
             android:text=""
-            android:hint="insert additional time ..."
+            android:hint="additional time ..."
             android:inputType="number"
             android:textColor="@color/black"
             android:textSize="20sp" />

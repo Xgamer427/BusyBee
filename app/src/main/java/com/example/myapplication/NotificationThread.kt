@@ -18,7 +18,7 @@ class NotificationThread(
     override fun run() {
 
         while(true){
-            val listOfNotitications : List<BusTrackerNotification> = mainActivity.viewModel.uiState.value.getNofiticationNeeded()
+            val listOfNotitications : List<BusTrackerNotification> = mainActivity.viewModel.getNofiticationNeeded()
 
             if (!listOfNotitications.isEmpty()){
                 var notifTitle = ""

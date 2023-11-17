@@ -43,7 +43,7 @@ class BuslineSelectionPage : Fragment() {
         //model for Updating and reading the uiState
         val con = this.context
         val buslines = BusDataSimulation.getInstance().getBuslines()
-        val currentStop: Stop? = model.uiState.value.currentSetupStop
+        val currentStop: Stop? = model.currentSetupStop
         var filteredBuslines: List<Busline> = emptyList()
         var filteredBuslinesNameArray = arrayListOf<String>()
 
