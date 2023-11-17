@@ -1,20 +1,14 @@
 package com.example.myapplication
 
 import OverviewFragment
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.app.NotificationCompat
 import androidx.drawerlayout.widget.DrawerLayout
-import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.JsonToSaveForPersistance
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
@@ -69,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_item3 -> {
                     // Handle screen 3 navigation
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, SelectionPage())
+                        .replace(R.id.fragment_container, MapPage())
                         .commitNow()
                 }
             }
