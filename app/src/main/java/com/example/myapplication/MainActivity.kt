@@ -56,26 +56,25 @@ class MainActivity : AppCompatActivity() {
             // Handle menu item clicks here
             when (menuItem.itemId) {
                 R.id.menu_item1 -> {
-                    // Handle screen 1 navigation
+                    // Handle Overview Fragment navigation
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, OverviewFragment())
                         .commitNow()
                 }
 
                 R.id.menu_item2 -> {
-                    // Handle screen 2 navigation
+                    // Handle Selectionpage navigation
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, SelectionPage())
                         .commitNow()
                 }
                 R.id.menu_item3 -> {
-                    // Handle screen 3 navigation
+                    // Handle Map navigation
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_container, SelectionPage())
                         .commitNow()
                 }
             }
-
             // Close the drawer after handling the click
             drawerLayout.closeDrawers()
             true
@@ -157,6 +156,7 @@ class MainActivity : AppCompatActivity() {
         super.onPause()
     }
 
+    //Function for the Drawer Layout
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val toggle = ActionBarDrawerToggle(
             this, drawerLayout, R.string.open, R.string.close

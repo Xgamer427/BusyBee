@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -25,8 +26,8 @@
             android:src="@mipmap/ic_launcher_round"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_image"
             android:layout_alignBottom="@+id/iv_image"
             android:layout_toEndOf="@+id/iv_image"
@@ -50,8 +51,15 @@
                 android:textColor="@android:color/darker_gray"
                 android:textSize="20sp"/>
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btnDeleteNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Delete"
+                android:textColor="@color/white"/>
 
+        </LinearLayout>
 
         <!-- Add other views for the card content as needed -->
 
