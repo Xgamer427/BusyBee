@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.pages
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import android.widget.ArrayAdapter
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.R
 import com.example.myapplication.Simulation.BusDataSimulation
-import com.example.myapplication.Simulation.RealBusDataSimulation
+import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.data.Stop
 import kotlinx.android.synthetic.main.fragment_stopselection_page.actvStopSelection
 import kotlinx.android.synthetic.main.fragment_stopselection_page.btnSaveStopSelection

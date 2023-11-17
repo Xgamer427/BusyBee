@@ -4,6 +4,7 @@ package com.example.myapplication
 import TimeMachine
 import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.BusTrackerNotification
+import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.data.DepartureTime
 import org.junit.Assert
 import org.junit.BeforeClass

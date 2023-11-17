@@ -1,7 +1,6 @@
-package com.example.myapplication
+package com.example.myapplication.pages
 
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.myapplication.data.BusTrackerUiState
+import com.example.myapplication.R
+import com.example.myapplication.data.BusTrackerViewModel
 import kotlinx.android.synthetic.main.fragment_selection_page.btnCreateNotification
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBuslineSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
