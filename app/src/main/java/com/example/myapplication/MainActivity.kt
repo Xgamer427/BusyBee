@@ -12,6 +12,7 @@ import com.example.myapplication.data.JsonToSaveForPersistance
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.notification.NotificationService
 import com.example.myapplication.notification.NotificationThread
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         notificationThread.start()
         //For the Hamburger-Icon
