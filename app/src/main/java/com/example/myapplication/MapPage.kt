@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -23,13 +24,14 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.NotNull
 
-class MapPage : Fragment(), OnMapReadyCallback {
+class MapPage : Fragment() {
 
     private val FINE_PERMISSION_CODE : Int = 1
     private lateinit var  myMap: GoogleMap
@@ -37,6 +39,22 @@ class MapPage : Fragment(), OnMapReadyCallback {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     lateinit var appContext : Context
+
+    val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                // Permission is granted. Continue the action or workflow in your
+                // app.
+            } else {
+                // Explain to the user that the feature is unavailable because the
+                // feature requires a permission that the user has denied. At the
+                // same time, respect the user's decision. Don't link to system
+                // settings in an effort to convince the user to change their
+                // decision.
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Map", "onCreate")
@@ -52,6 +70,7 @@ class MapPage : Fragment(), OnMapReadyCallback {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         appContext  = requireContext()
         if (ActivityCompat.checkSelfPermission(
                 appContext,
@@ -61,36 +80,64 @@ class MapPage : Fragment(), OnMapReadyCallback {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            Log.d("Map", "No Permissions")
-            //ActivityCompat.requestPermissions(activity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),FINE_PERMISSION_CODE)
+
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),FINE_PERMISSION_CODE)
+            Toast.makeText(appContext, "Location access must be granted", Toast.LENGTH_SHORT)
             return
         }
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(appContext)
         Log.d("Map", "Before cRountine")
+
+        val mapFragment : SupportMapFragment  = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(OnMapReadyCallback {
+            myMap = it
+            myMap.moveCamera(CameraUpdateFactory.zoomTo(16f))
+        })
+
         lifecycleScope.launch {
-            Log.d("Map", "Behind CRoutine")
-            val task : Task<Location> = fusedLocationProviderClient.getLastLocation()
-            task.addOnSuccessListener {location ->
-                if(location!= null){
-                    currentLocation = location
-                    val mapFragment : SupportMapFragment  = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                    mapFragment.getMapAsync(OnMapReadyCallback {
-                        myMap = it
-                        val sydney: LatLng = LatLng(-34.0, 100.0)
-                        myMap.addMarker(MarkerOptions().position(sydney).title("MyLocation"))
+            var marker: Marker? = null
+            var iterator = 0
+
+            while (true){
+                Log.d("Map", "New Loop")
+                /*locationTrack = LocationTrack(MainActivity.this);
+
+
+                if (locationTrack.canGetLocation()) {
+
+
+                    double longitude = locationTrack.getLongitude();
+                    double latitude = locationTrack.getLatitude();
+*/
+
+                val task : Task<Location> = fusedLocationProviderClient.getLastLocation()
+                task.addOnSuccessListener {location ->
+
+                    Log.d("Map", "Location success")
+                    if(location!= null){
+                        Log.d("Map", "Location Updated " +location.toString())
+                        Toast.makeText(appContext, "Location updated", Toast.LENGTH_SHORT)
+                        currentLocation = location
+                        val sydney: LatLng = LatLng(location.latitude, location.longitude)
+                        marker?.remove()
+                        marker = myMap.addMarker(MarkerOptions().position(sydney).title("MyLocation"))
                         myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-                    })
+                    }else{
+                        Toast.makeText(appContext, "Location is disabled", Toast.LENGTH_SHORT)
+                    }
                 }
+                delay(5000)
             }
         }
+
         Log.d("Map", "After RCountine")
         /*mapFragment.getMapAsync(OnMapReadyCallback {
             myMap = it
         })*/
         //getLastLocation()
-        super.onViewCreated(view, savedInstanceState)
+
     }
-    /*
+
         fun getLastLocation(){
 
             if (
@@ -110,13 +157,12 @@ class MapPage : Fragment(), OnMapReadyCallback {
                 return
             }
             Toast.makeText(context, "get location", Toast.LENGTH_SHORT).show()
-            val task : Task<Location> = fusedLocationProviderClient.getLastLocation()
+            val task : Task<Location> = fusedLocationProviderClient.lastLocation
             task.addOnSuccessListener {location ->
                 if(location!= null){
                     currentLocation = location
 
-                    val mapFragment : SupportMapFragment = parentFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-                    mapFragment.getMapAsync(this)
+
                 }
             }
 
@@ -137,15 +183,6 @@ class MapPage : Fragment(), OnMapReadyCallback {
 
             }
         }
-        */
-    override fun onMapReady(@NotNull googleMap: GoogleMap) {
-        Log.d("Map", "OnMapReady")
-        /*myMap = googleMap
 
-        val sydney: LatLng = LatLng(-34.0, 100.0)
-        myMap.addMarker(MarkerOptions().position(sydney).title("MyLocation"))
-        myMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
-        */
-    }
 
 }
