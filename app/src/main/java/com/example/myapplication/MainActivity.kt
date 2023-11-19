@@ -1,6 +1,6 @@
 package com.example.myapplication
 
-import com.example.myapplication.pages.OverviewFragment
+import OverviewFragment
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -13,10 +13,6 @@ import com.example.myapplication.data.JsonToSaveForPersistance
 import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.data.BusTrackerViewModel
-import com.example.myapplication.notification.NotificationService
-import com.example.myapplication.notification.NotificationThread
-import com.example.myapplication.pages.SelectionPage
 
 class MainActivity : AppCompatActivity() {
 
