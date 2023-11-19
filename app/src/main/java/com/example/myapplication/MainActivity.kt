@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import com.example.myapplication.pages.OverviewFragment
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -16,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.notification.NotificationService
 import com.example.myapplication.notification.NotificationThread
+import com.example.myapplication.pages.OverviewFragment
 import com.example.myapplication.pages.SelectionPage
 
 class MainActivity : AppCompatActivity() {
@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_item3 -> {
                     // Handle screen 3 navigation
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, SelectionPage())
+                        .replace(R.id.fragment_container, MapPage())
                         .commitNow()
                 }
             }
