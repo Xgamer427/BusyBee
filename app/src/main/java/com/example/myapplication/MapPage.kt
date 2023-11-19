@@ -5,19 +5,20 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.example.myapplication.MainActivity
-import com.example.myapplication.R
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -29,7 +30,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jetbrains.annotations.NotNull
 
 class MapPage : Fragment() {
 
@@ -39,22 +39,6 @@ class MapPage : Fragment() {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     lateinit var appContext : Context
-
-    val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                // Permission is granted. Continue the action or workflow in your
-                // app.
-            } else {
-                // Explain to the user that the feature is unavailable because the
-                // feature requires a permission that the user has denied. At the
-                // same time, respect the user's decision. Don't link to system
-                // settings in an effort to convince the user to change their
-                // decision.
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Map", "onCreate")
@@ -68,7 +52,7 @@ class MapPage : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
-
+/*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         appContext  = requireContext()
@@ -95,20 +79,27 @@ class MapPage : Fragment() {
         })
 
         lifecycleScope.launch {
+            val request = LocationRequest.create().setInterval(1000L).setFastestInterval(1000L)
+
+            val locationCallBack = object  : LocationCallback() {
+                override fun onLocationResult(result: LocationResult) {
+                    super.onLocationResult(result)
+                    result.locations.lastOrNull()?.let { location ->
+                        launch { Log.d("Map", location.toString()) }
+                    }
+                }
+            }
             var marker: Marker? = null
-            var iterator = 0
 
             while (true){
+
+
                 Log.d("Map", "New Loop")
-                /*locationTrack = LocationTrack(MainActivity.this);
+                Toast.makeText(appContext, "Get location Loop", Toast.LENGTH_SHORT)
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(appContext)
 
 
-                if (locationTrack.canGetLocation()) {
-
-
-                    double longitude = locationTrack.getLongitude();
-                    double latitude = locationTrack.getLatitude();
-*/
+                fusedLocationProviderClient.requestLocationUpdates(request, locationCallBack, Looper.getMainLooper())
 
                 val task : Task<Location> = fusedLocationProviderClient.getLastLocation()
                 task.addOnSuccessListener {location ->
@@ -126,15 +117,11 @@ class MapPage : Fragment() {
                         Toast.makeText(appContext, "Location is disabled", Toast.LENGTH_SHORT)
                     }
                 }
-                delay(5000)
+                delay(1000)
             }
         }
 
         Log.d("Map", "After RCountine")
-        /*mapFragment.getMapAsync(OnMapReadyCallback {
-            myMap = it
-        })*/
-        //getLastLocation()
 
     }
 
@@ -184,5 +171,5 @@ class MapPage : Fragment() {
             }
         }
 
-
+*/
 }
