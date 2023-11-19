@@ -1,13 +1,8 @@
-package com.example.myapplication
+package com.example.myapplication.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.data.Bus
-import com.example.myapplication.data.BusTrackerNotification
-import com.example.myapplication.data.Busline
-import com.example.myapplication.data.DepartureTime
-import com.example.myapplication.data.Stop
 
 class BusTrackerViewModel : ViewModel() {
 

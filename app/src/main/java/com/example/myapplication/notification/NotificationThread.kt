@@ -1,12 +1,12 @@
-package com.example.myapplication
+package com.example.myapplication.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.graphics.Color
-import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat.getSystemService
+import com.example.myapplication.MainActivity
+import com.example.myapplication.R
 import com.example.myapplication.data.BusTrackerNotification
 
 class NotificationThread(

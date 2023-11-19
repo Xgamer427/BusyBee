@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.notification
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -11,9 +11,9 @@ import android.os.IBinder
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.myapplication.data.Bus
+import com.example.myapplication.R
 import com.example.myapplication.data.BusTrackerNotification
-import com.example.myapplication.data.BusTrackerUiState
+import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.data.JsonToSaveForPersistance
 import com.google.gson.Gson
 import java.util.Timer
