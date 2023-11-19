@@ -1,6 +1,5 @@
 package com.example.myapplication
 
-import com.example.myapplication.pages.OverviewFragment
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -8,15 +7,16 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.drawerlayout.widget.DrawerLayout
-import com.example.myapplication.data.JsonToSaveForPersistance
-import com.google.android.material.navigation.NavigationView
-import com.google.gson.Gson
 import androidx.appcompat.app.AppCompatActivity
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.data.BusTrackerViewModel
+import com.example.myapplication.data.JsonToSaveForPersistance
 import com.example.myapplication.notification.NotificationService
 import com.example.myapplication.notification.NotificationThread
+import com.example.myapplication.pages.OverviewFragment
 import com.example.myapplication.pages.SelectionPage
+import com.google.android.material.navigation.NavigationView
+import com.google.gson.Gson
 
 class MainActivity : AppCompatActivity() {
 
