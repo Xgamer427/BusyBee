@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectionPage"
+    tools:context=".pages.SelectionPage"
     android:id="@+id/fragmentSelectionPage"
     >
 
@@ -31,7 +31,7 @@
             android:id="@+id/tvStopSelection"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="left|center"
             android:text="Stop: "
             android:textSize="20sp"
             android:layout_weight="1" />
@@ -45,7 +45,7 @@
             android:backgroundTint="@color/white"
             android:text="Select"
             android:textSize="20sp"
-            android:layout_weight="10" />
+            android:layout_weight="4" />
 
 
     </LinearLayout>
@@ -62,7 +62,7 @@
             android:id="@+id/tvBusSelection"
             android:layout_width="60dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="left|center"
             android:text="Busline: "
             android:textSize="20sp"
             android:layout_weight="1" />
@@ -76,7 +76,7 @@
             android:backgroundTint="@color/white"
             android:text="Select"
             android:textSize="20sp"
-            android:layout_weight="10" />
+            android:layout_weight="4" />
 
 
     </LinearLayout>
@@ -92,8 +92,8 @@
             android:id="@+id/tvDeparturetimeSelection"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="Departuretime: "
+            android:gravity="left|center"
+            android:text="Dep. time: "
             android:textSize="20sp"
             android:layout_weight="1" />
 
@@ -124,7 +124,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center|left"
-            android:text="Buffertime (in min) \nto get to the stop: "
+            android:text="Buffertime (in min): "
             android:textSize="20sp" />
 
         <EditText
@@ -135,7 +135,7 @@
             android:backgroundTint="@color/white"
             android:gravity="center_vertical"
             android:text=""
-            android:hint="insert buffer ..."
+            android:hint="buffer time ..."
             android:inputType="number"
             android:textColor="@color/black"
             android:textSize="20sp" />
@@ -156,7 +156,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center|left"
-            android:text="Buffertime (in min) \nto get to the stop: "
+            android:text="Prep. time (in min):"
             android:textSize="20sp" />
 
         <EditText
@@ -167,7 +167,7 @@
             android:backgroundTint="@color/white"
             android:gravity="center_vertical"
             android:text=""
-            android:hint="insert additional time ..."
+            android:hint="additional time ..."
             android:inputType="number"
             android:textColor="@color/black"
             android:textSize="20sp" />

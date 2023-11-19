@@ -1,13 +1,12 @@
-package com.example.myapplication
+package com.example.myapplication.pages
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TimePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.data.DepartureTime
 import com.example.myapplication.databinding.FragmentDeparturetimeselectionPageBinding
 import kotlinx.android.synthetic.main.fragment_departuretimeselection_page.btnSaveDeparturetime

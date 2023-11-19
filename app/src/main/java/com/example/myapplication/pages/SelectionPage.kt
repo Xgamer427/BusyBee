@@ -1,10 +1,11 @@
-package com.example.myapplication
+package com.example.myapplication.pages
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.myapplication.data.BusTrackerNotification
@@ -13,7 +14,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.example.myapplication.data.BusTrackerUiState
+import com.example.myapplication.R
+import com.example.myapplication.data.BusTrackerViewModel
 import kotlinx.android.synthetic.main.fragment_selection_page.btnCreateNotification
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectBuslineSelection
 import kotlinx.android.synthetic.main.fragment_selection_page.btnSelectDeparturetime
@@ -41,35 +43,34 @@ class SelectionPage : Fragment() {
                 // Create an instance of a ViewModel called BusTrackerViewModel, which appears to be shared with the activity
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
 
-                // Collect and observe changes in the ViewModel's UI state
-                model.uiState.collect {
-                    // Retrieve the current UI state from the ViewModel
-                    val currentUiState: BusTrackerUiState = model.uiState.value
 
-                    //TODO: Cleaning up the following Code
+                //TODO: Cleaning up the following Code
 
-                    // Initialize a default text to show
-                    var textToShowStop: String = "Select ..."
-                    var textToShowBusLine: String = "Select ..."
-                    var textToShowDeparturetime: String = "Select ..."
+                // Initialize a default text to show
+                var textToShowStop: String = "Select ..."
+                var textToShowBusLine: String = "Select ..."
+                var textToShowDeparturetime: String = "Select ..."
+                var toShowBufferTime: Int = model.currentSetupBuffertime
+                var toShowAditionalTime: Int = model.currentSetupAdditionalTime
 
-                    // Check if the currentSetupStop has a name, and if so, update textToShow
-                    if (currentUiState.currentSetupStop?.name != null) {
-                        textToShowStop = currentUiState.currentSetupStop.name
-                    }
-
-                    if (currentUiState.currentSetupBusline?.name != null) {
-                        textToShowBusLine = currentUiState.currentSetupBusline.name
-                    }
-                    if (currentUiState.currentSetupDepartureTime?.toString() != null) {
-                        textToShowDeparturetime =
-                            currentUiState.currentSetupDepartureTime.toString()
-                    }
-                    // Update the text of UI elements (buttons) based on the collected data
-                    btnSelectStopSelection.text = textToShowStop
-                    btnSelectBuslineSelection.text = textToShowBusLine
-                    btnSelectDeparturetime.text = textToShowDeparturetime
+                // Check if the currentSetupStop has a name, and if so, update textToShow
+                if (model.currentSetupStop.value?.name != null) {
+                    textToShowStop = model.currentSetupStop.value!!.name
                 }
+
+                if (model.currentSetupBusline.value?.name != null) {
+                    textToShowBusLine = model.currentSetupBusline.value!!.name
+                }
+                if (model.currentSetupDepartureTime.value != null) {
+                    textToShowDeparturetime = model.currentSetupDepartureTime.value.toString()
+                }
+                // Update the text of UI elements (buttons) based on the collected data
+                btnSelectStopSelection.text = textToShowStop
+                btnSelectBuslineSelection.text = textToShowBusLine
+                btnSelectDeparturetime.text = textToShowDeparturetime
+                etBuffertime.setText(toShowBufferTime.toString(), TextView.BufferType.EDITABLE)
+                etAdditionalTime.setText(toShowAditionalTime.toString(), TextView.BufferType.EDITABLE)
+
             }
         }
         // Inflate the layout for this fragment
@@ -77,6 +78,7 @@ class SelectionPage : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
 
 
         btnSelectStopSelection.setOnClickListener {
@@ -88,18 +90,46 @@ class SelectionPage : Fragment() {
         }
 
         etBuffertime.addTextChangedListener {
+            val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
             if(etBuffertime.text.toString() != ""){
-                val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-                model.updateCurrentSetupBuffertime(etBuffertime.text.toString().toInt())
-                Log.d("ViewModel", model.uiState.value.toString())
+                model.currentSetupBuffertime = etBuffertime.text.toString().toInt()
+                Log.d("SelectionPage", "ExecutedListener")
+            }else{
+                model.currentSetupBuffertime = 0
+            }
+        }
+
+        val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
+        model.currentSetupStop.observe(viewLifecycleOwner
+        ) {
+            if(it != null){
+                btnSelectStopSelection.text = it.name
+            }else{
+                btnSelectStopSelection.text = "Select"
+            }
+        }
+        model.currentSetupBusline.observe(viewLifecycleOwner){
+            if(it != null){
+                btnSelectBuslineSelection.text = it.name
+            }else{
+                btnSelectBuslineSelection.text = "Select"
+            }
+        }
+        model.currentSetupDepartureTime.observe(viewLifecycleOwner){
+            Log.d("SelectionPage", it.toString())
+            if(it != null){
+                btnSelectDeparturetime.text = it.toString()
+            }else{
+                btnSelectDeparturetime.text = "Select"
             }
         }
 
         etAdditionalTime.addTextChangedListener {
             if(etAdditionalTime.text.toString() != ""){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-                model.updateCurrentSetupAdditionaltime(etAdditionalTime.text.toString().toInt())
-                Log.d("ViewModel", model.uiState.value.toString())
+                model.currentSetupAdditionalTime = etAdditionalTime.text.toString().toInt()
+            }else{
+                model.currentSetupAdditionalTime = 0
             }
         }
 
@@ -126,28 +156,31 @@ class SelectionPage : Fragment() {
             //Das if Statement muss true sein, wenn alles != null ist
 
 
-            if((model.uiState.value.currentSetupStop != null) &&
-                (model.uiState.value.currentSetupBusline != null) &&
-                (model.uiState.value.currentSetupDepartureTime != null) &&
-                (model.uiState.value.currentSetupDirection != null)
+            if((model.currentSetupStop.value != null) &&
+                (model.currentSetupBusline.value != null) &&
+                (model.currentSetupDepartureTime.value != null) &&
+                (model.currentSetupDirection != null) &&
+                (model.currentSetupBuffertime != null)
                 //Buffertime is 0 on default, no null check required
             )
             {
                 //put the currentstates into a new Notification
-                Toast.makeText(context, "All values entered", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Notification Saved", Toast.LENGTH_SHORT).show()
                 val newNotification = BusTrackerNotification(
-                    model.uiState.value.currentSetupStop!!,
-                    model.uiState.value.currentSetupBusline!!,
-                    model.uiState.value.currentSetupDirection,
-                    model.uiState.value.currentSetupDepartureTime!!,
-                    model.uiState.value.currentSetupBuffertime,
-                    model.uiState.value.currentSetupAdditionalTime
+                    model.currentSetupStop.value!!,
+                    model.currentSetupBusline.value!!,
+                    model.currentSetupDirection,
+                    model.currentSetupDepartureTime.value!!,
+                    model.currentSetupBuffertime!!,
+                    model.currentSetupAdditionalTime
                 )
-                model.updateNotificationArray(newNotification)
-                Log.d("Tim", model.uiState.value.toString())
+                model.addToNotificationArray(newNotification)
+                model.resetCurrentSetup()
+                Log.d("Notification", model.toStringCustome())
             } else {
                 Toast.makeText(context, "Put in every Value", Toast.LENGTH_SHORT).show()
             }
+
         }
         super.onViewCreated(view, savedInstanceState)
     }

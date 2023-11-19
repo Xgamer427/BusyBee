@@ -35,7 +35,7 @@ open class RealBusDataSimulation: BusDataSimulation {
     private val buses:List<Bus> = mutableListOf(
         Bus(0,0, "Bus0", buslines[0],
             mutableListOf(
-                DepartureTime(16,32),
+                DepartureTime(0,30),
                 DepartureTime(17,46),
                 DepartureTime(17,47)
             ),
@@ -58,6 +58,5 @@ open class RealBusDataSimulation: BusDataSimulation {
     override fun getStops() = stops
 
     override fun getBuslines() = buslines
-
 
 }

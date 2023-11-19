@@ -1,7 +1,6 @@
-package com.example.myapplication
+package com.example.myapplication.pages
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +9,9 @@ import android.widget.RadioButton
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.data.BusTrackerViewModel
+import com.example.myapplication.R
 import com.example.myapplication.Simulation.BusDataSimulation
-import com.example.myapplication.Simulation.RealBusDataSimulation
 import com.example.myapplication.data.Busline
 
 import com.example.myapplication.data.Stop
@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSe
 
 class BuslineSelectionPage : Fragment() {
 
-    private val buslines= arrayOf("busline1", "busline2")
     private var selectedBusline: Busline? = null
     private var checkedText : String? = null
 
@@ -43,7 +42,7 @@ class BuslineSelectionPage : Fragment() {
         //model for Updating and reading the uiState
         val con = this.context
         val buslines = BusDataSimulation.getInstance().getBuslines()
-        val currentStop: Stop? = model.uiState.value.currentSetupStop
+        val currentStop: Stop? = model.currentSetupStop.value
         var filteredBuslines: List<Busline> = emptyList()
         var filteredBuslinesNameArray = arrayListOf<String>()
 
