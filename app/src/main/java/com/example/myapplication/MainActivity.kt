@@ -1,11 +1,13 @@
 package com.example.myapplication
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.myapplication.data.JsonToSaveForPersistance
@@ -13,9 +15,11 @@ import com.google.android.material.navigation.NavigationView
 import com.google.gson.Gson
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.notification.NotificationService
 import com.example.myapplication.notification.NotificationThread
+import com.example.myapplication.pages.MapPage
 import com.example.myapplication.pages.OverviewFragment
 import com.example.myapplication.pages.SelectionPage
 
@@ -34,6 +38,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        BusDataSimulation.getInstance().getBusses().forEach {
+            Log.d("BusDataSimulation", it.myToString())
+        }
+
 
         notificationThread.start()
         //For the Hamburger-Icon
@@ -79,25 +88,20 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        /*val intent = Intent(this, NotificationService::class.java);
-
-        val viewModelJson:String = Gson().toJson(viewModel.uiState.value)
-        intent.putExtra("viewModelUIState",viewModelJson)
-        startService(intent);
-        */
-
         Log.d("uiStateJson","OnStart")
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val jsonStringUIState:String? = pref.getString("uiStateJson", null)
         if(jsonStringUIState != null){
             val loadedUIState: JsonToSaveForPersistance = Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
             viewModel.addToNotificationArray(loadedUIState.listOfNotification)
+
         }
 
         var msg = "${viewModel.notificationArray.size} Notifications Loaded"
         viewModel.notificationArray.forEach {
             msg = msg+ "\n $it"
         }
+        Log.d("uiStateJson","Loaded " + msg)
     }
 
     override fun onPause() {

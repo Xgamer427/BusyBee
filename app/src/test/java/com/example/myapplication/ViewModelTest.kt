@@ -42,14 +42,14 @@ private val TAG = "ViewModelTest"
     @Test
     fun TestGetNotification (){
 
-        var timeDate = LocalDateTime.parse("2018-12-30T12:00:00.00")
+        var timeDate = LocalDateTime.parse("2018-12-30T12:02:00.00")
         TimeMachine.useFixedClockAt(timeDate)
 
         var listOfNotitications : List<BusTrackerNotification> = viewModel.getNofiticationNeeded()
         Assert.assertEquals(0, listOfNotitications.size)
 
 
-        timeDate = LocalDateTime.parse("2018-12-30T12:01:00.00")
+        timeDate = LocalDateTime.parse("2018-12-30T12:03:00.00")
         TimeMachine.useFixedClockAt(timeDate)
 
         listOfNotitications = viewModel.getNofiticationNeeded()
@@ -59,14 +59,14 @@ private val TAG = "ViewModelTest"
     @Test
     fun getRealDepartureTimeTest(){
         val departureTime = viewModel.notificationArray[0].getRealDepartureTime()
-        Assert.assertEquals(DepartureTime(12,3), departureTime)
+        Assert.assertEquals(DepartureTime(12,5), departureTime)
     }
 
 
     @Test
     fun getTimeToGetReadyTest() {
         val departureTime = viewModel.notificationArray[0].getTimeToGetReady()
-        Assert.assertEquals(DepartureTime(12,1), departureTime)
+        Assert.assertEquals(DepartureTime(12,3), departureTime)
     }
 
 

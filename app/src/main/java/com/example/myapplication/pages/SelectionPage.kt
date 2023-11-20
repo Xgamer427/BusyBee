@@ -176,6 +176,10 @@ class SelectionPage : Fragment() {
                 )
                 model.addToNotificationArray(newNotification)
                 model.resetCurrentSetup()
+                etBuffertime.setText("0", TextView.BufferType.EDITABLE)
+                etAdditionalTime.setText("0", TextView.BufferType.EDITABLE)
+
+
                 Log.d("Notification", model.toStringCustome())
             } else {
                 Toast.makeText(context, "Put in every Value", Toast.LENGTH_SHORT).show()

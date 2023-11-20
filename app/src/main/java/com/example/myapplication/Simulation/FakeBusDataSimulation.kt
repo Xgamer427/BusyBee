@@ -23,7 +23,7 @@ class FakeBusDataSimulation : BusDataSimulation {
     private val buses:List<Bus> = mutableListOf(
         Bus(0,0, "TestBus", buslines[0],
             mutableListOf(
-                DepartureTime(10,2),
+                DepartureTime(12,2),
                 DepartureTime(12,4),
                 DepartureTime(12,6)
             ),
@@ -35,7 +35,7 @@ class FakeBusDataSimulation : BusDataSimulation {
         buses.forEach {
             var index = 0
             it.plannedDepTimes.forEach{plannedDepartureTime ->
-                it.realDepTimes[index++] = plannedDepartureTime.plusMinutes(1)
+                it.realDepTimes[index++] = plannedDepartureTime.plusMinutes(3)
             }
             println("New real dep times ${it.name} "+ it.realDepTimes)
         }

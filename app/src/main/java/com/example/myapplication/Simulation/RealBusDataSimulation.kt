@@ -12,31 +12,18 @@ open class RealBusDataSimulation: BusDataSimulation {
         Stop(0,0,"Stop2"),
         Stop(0,0,"Stop3"),
         Stop(0,0,"Stop4"),
-        Stop(0,0,"Stop5"),
-        Stop(0,0,"Stop6"),
-        Stop(0,0,"Stop7"),
-        Stop(0,0,"Stop8"),
-        Stop(0,0,"Stop9"),
-        Stop(0,0,"Stop10"),
-        Stop(0,0,"Stop11"),
-        Stop(0,0,"Stop12")
     )
 
     private val buslines:List<Busline> = mutableListOf(
         Busline( "Busline0", stops.slice(0..2)),
         Busline( "Busline1", stops.slice(1..3)),
-        Busline( "Busline2", stops.slice(2..4)),
-        Busline( "Busline4", stops.slice(3..5)),
-        Busline( "Busline5", stops.slice(4..6)),
-        Busline( "Busline6", stops.slice(5..7)),
-        Busline( "Busline7", stops.slice(6..8)),
     )
 
     private val buses:List<Bus> = mutableListOf(
         Bus(0,0, "Bus0", buslines[0],
             mutableListOf(
                 DepartureTime(0,30),
-                DepartureTime(17,46),
+                DepartureTime(15,5),
                 DepartureTime(17,47)
             ),
             true

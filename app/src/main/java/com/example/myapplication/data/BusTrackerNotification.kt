@@ -62,8 +62,16 @@ data class BusTrackerNotification(
 
     //TODO handle/change that getRealDepartureTIme returns null if the best bus drives at next day
     fun getTimeToGetReady(): DepartureTime?{
-
-        return getRealDepartureTime()?.minusMinutes(buffertime)?.minusMinutes(additionalTime) //TODO what if no bus for this time found
+        val realDepTime : DepartureTime? = getRealDepartureTime()
+        val toReturn : DepartureTime? = realDepTime?.minusMinutes(buffertime)?.minusMinutes(additionalTime) //TODO what if no bus for this time found
+        if(toReturn != null){
+            if(realDepTime != null){
+                if(toReturn<=realDepTime){
+                    return toReturn
+                }
+            }
+        }
+        return null
     }
 }
 
@@ -78,7 +86,15 @@ data class DepartureTime(
 
     }
     override fun toString(): String {
-        return hour.toString() + "h" + min.toString() + "min"
+        var hourStr = "$hour"
+        if(hour<10){
+            hourStr = "0" + hourStr
+        }
+        var minStr = "$min"
+        if(min<10){
+            minStr = "0" + minStr
+        }
+        return "$hourStr:$minStr"
     }
 
     fun plusMinutes(plusMin: Int): DepartureTime{
@@ -190,9 +206,8 @@ data class Bus(
         realDepTimes = mutableListOf()
         val random = Random
         plannedDepTimes.forEach {
-
             var realDepTime: DepartureTime = it.clone()
-            realDepTime.plusMinutes(random.nextInt(0, 2 + 1))
+            realDepTime = realDepTime.plusMinutes(random.nextInt(0, 2 + 1))
             realDepTimes.add(realDepTime)
         }
     }
