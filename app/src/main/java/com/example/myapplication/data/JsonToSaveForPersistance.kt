@@ -1,14 +1,4 @@
-package com.example.myapplication.data
+// Class for converting a list of BusTrackerNotification objects to a formatted string for persistence.
+class JsonToSaveForPersistance(var listOfNotification: MutableList<BusTrackerNotification>) {
 
-import android.annotation.SuppressLint
-
-class JsonToSaveForPersistance(var listOfNotification: Array<BusTrackerNotification>) {
-    @SuppressLint("SuspiciousIndentation")
-    override fun toString(): String {
-        val toReturn = "listSize " + listOfNotification.size + "\n"
-                listOfNotification.forEach {
-                    toReturn + it.toString() + "\n"
-                }
-        return toReturn
-    }
 }

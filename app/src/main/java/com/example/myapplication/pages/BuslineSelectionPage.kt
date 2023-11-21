@@ -12,19 +12,21 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.R
 import com.example.myapplication.Simulation.BusDataSimulation
-import com.example.myapplication.data.Busline
-
-import com.example.myapplication.data.Stop
+import Busline
+import Stop
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage
 
+/**
+ * Fragment for selecting a bus line and direction.
+ */
 class BuslineSelectionPage : Fragment() {
 
     private var selectedBusline: Busline? = null
-    private var checkedText : String? = null
+    private var checkedText: String? = null
 
-     override fun onCreateView(
+    override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -33,30 +35,29 @@ class BuslineSelectionPage : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
+        // ViewModel instance for accessing and updating UI state
         val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
 
-        //setup UI Element. Default value == false
+        // Setup UI Element. Default value == false
         btnSaveBuslineSelection.isEnabled = false
 
-        //model for Updating and reading the uiState
         val con = this.context
         val buslines = BusDataSimulation.getInstance().getBuslines()
         val currentStop: Stop? = model.currentSetupStop.value
         var filteredBuslines: List<Busline> = emptyList()
         var filteredBuslinesNameArray = arrayListOf<String>()
 
-        //Filter the Buslines if a stop is selected
-        if(buslines != null && currentStop != null){
+        // Filter the Buslines if a stop is selected
+        if (buslines != null && currentStop != null) {
             filteredBuslines = buslines.filter { busline: Busline ->
                 busline.stops.contains(currentStop)
             }
-
         }
 
         filteredBuslines.forEach {
             filteredBuslinesNameArray += it.name
         }
+
         if (con != null) {
             actvBuslineSelection.setAdapter(
                 ArrayAdapter(
@@ -67,29 +68,32 @@ class BuslineSelectionPage : Fragment() {
             )
         }
 
+        // Listener for AutoCompleteTextView item selection
         actvBuslineSelection.setOnItemClickListener { parent, view, position, id ->
             selectedBusline = parent.getItemAtPosition(position) as Busline
             btnSaveBuslineSelection.isEnabled = true
         }
 
+        // Listener for AutoCompleteTextView text change
         actvBuslineSelection.addTextChangedListener {
             btnSaveBuslineSelection.isEnabled = false
         }
 
-        //Update current checked Button
+        // Update current checked RadioButton
         rgBuslineSelectionPage.setOnCheckedChangeListener { group, checkedId ->
             var checkedRadioButton = view.findViewById<RadioButton>(checkedId)
 
-            //Ensure that a RadioButton is checked
+            // Ensure that a RadioButton is checked
             if (checkedRadioButton != null) {
                 checkedText = checkedRadioButton!!.text.toString()
                 model.updateCurrentSetupDirection(checkedText.equals("DirectionA"))
             }
         }
 
-        //OnClick for button to save selected bus
+        // OnClick for the button to save the selected bus line
         btnSaveBuslineSelection.setOnClickListener {
-            if(checkedText == null){
+            if (checkedText == null) {
+                // If no direction is selected, default to DirectionA
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
                 model.updateCurrentSetupDirection(true)
             }

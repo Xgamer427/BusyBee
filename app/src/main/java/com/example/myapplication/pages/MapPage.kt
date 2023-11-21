@@ -1,45 +1,31 @@
-package com.example.myapplication
+package com.example.myapplication.pages
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import com.example.myapplication.R
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
-import com.google.android.gms.location.LocationServices
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.Task
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
+/**
+ * Fragment for showing a map
+ */
 class MapPage : Fragment() {
 
+    //Map location works but updating it to track location not works so commented out
+    /*
     private val FINE_PERMISSION_CODE : Int = 1
     private lateinit var  myMap: GoogleMap
     lateinit var currentLocation: Location
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     lateinit var appContext : Context
-
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Map", "onCreate")
         super.onCreate(savedInstanceState)
@@ -52,6 +38,7 @@ class MapPage : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
+    //Map location works but updating it to track location not works so commented out
 /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
