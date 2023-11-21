@@ -1,30 +1,29 @@
 package com.example.myapplication
 
-import android.telecom.Call.Details
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerAdapter (private var titles: List<String>, private var details: List<String>, private var images:List<Int>) :
+class RecyclerAdapter (private var titles: MutableList<String>, private var details: MutableList<String>) :
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
         inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             val itemTitle: TextView = itemView.findViewById(R.id.tvTitle)
             val itemDetail: TextView = itemView.findViewById(R.id.tv_description )
-            val itemPicture: ImageView = itemView.findViewById(R.id.iv_image)
 
-            init {
+            /*init {
                 itemView.setOnClickListener {v : View ->
                     val position: Int = adapterPosition
                     Toast.makeText(itemView.context, "You clicked on item # ${position + 1} ", Toast.LENGTH_SHORT).show()
 
-                }
+                }*/
+            fun bind(property: String, index: Int) {
+                val itemTitle: TextView = itemView.findViewById(R.id.tvTitle)
+                val itemDetail: TextView = itemView.findViewById(R.id.tv_description )
             }
-
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -39,6 +38,5 @@ class RecyclerAdapter (private var titles: List<String>, private var details: Li
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemTitle.text = titles[position]
         holder.itemDetail.text = details[position]
-        holder.itemPicture.setImageResource(images[position])
     }
 }

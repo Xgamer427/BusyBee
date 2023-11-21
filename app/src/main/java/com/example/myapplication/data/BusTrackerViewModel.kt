@@ -8,7 +8,6 @@ class BusTrackerViewModel : ViewModel() {
 
     var notificationArray: Array<BusTrackerNotification> = arrayOf()
 
-
     private val _currentSetupStop: MutableLiveData<Stop?> = MutableLiveData<Stop?>()
     val currentSetupStop: LiveData<Stop?>
         get() = _currentSetupStop
@@ -26,6 +25,8 @@ class BusTrackerViewModel : ViewModel() {
     var currentSetupAdditionalTime: Int = 0
 
     var currentSetupDirection: Boolean? = null
+
+    var currentSetupTitle: String = ""
 
     fun addToNotificationArray(newNotificationArray: Array<BusTrackerNotification>){
         notificationArray = newNotificationArray
@@ -45,6 +46,10 @@ class BusTrackerViewModel : ViewModel() {
 
     fun updateCurrentBusline(busline: Busline){
         _currentSetupBusline.value = busline
+    }
+
+    fun updateCurrentTitle(title: String) {
+        currentSetupTitle = title
     }
 
 

@@ -8,6 +8,7 @@ import kotlin.random.Random
 
 
 data class BusTrackerNotification(
+    val title: String,
     val stop: Stop,
     val busline : Busline,
     val directionArrayAscendant : Boolean? = null,
@@ -19,12 +20,12 @@ data class BusTrackerNotification(
 
     override fun toString(): String {
         return "BusTrackerNotification" + "\n" +
+                title + "\n" +
                 stop.name + "\n" +
                 busline.name + "\n" +
                 timePicked + "\n" +
                 buffertime + "\n" +
-                additionalTime + "\n" +
-                notificationDone + "\n" + "\n"
+                additionalTime + "\n"
 
     }
     fun getRealDepartureTime(): DepartureTime? {
@@ -217,6 +218,10 @@ data class Bus(
 
     fun myToString() : String{
         return toString() + " realDepartureTimes: " + realDepTimes
+    }
+
+    override fun toString(): String {
+        return name
     }
 }
 
