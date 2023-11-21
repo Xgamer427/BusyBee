@@ -39,7 +39,7 @@ class OverviewNofitication : AppCompatActivity() {
          postToList()
 
         // Set up RecyclerView adapter with the data lists
-        rv_recyclerView.adapter = RecyclerAdapter(titlesList, descList, imagesList)
+        rv_recyclerView.adapter = RecyclerAdapter(titlesList, descriptionList)
 
         // Populate data lists and update RecyclerView
         postToList()

@@ -12,8 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.data.BusTrackerViewModel
 import com.example.myapplication.R
 import com.example.myapplication.Simulation.BusDataSimulation
-import Busline
-import Stop
+import com.example.myapplication.data.Busline
+import com.example.myapplication.data.Stop
+
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.actvBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.btnSaveBuslineSelection
 import kotlinx.android.synthetic.main.fragment_buslineselection_page.rgBuslineSelectionPage

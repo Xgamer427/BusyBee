@@ -2,10 +2,11 @@
 package com.example.myapplication.Simulation
 
 // Import necessary classes for the simulation
-import Busline
-import Stop
+
 import com.example.myapplication.data.Bus
 import DepartureTime
+import com.example.myapplication.data.Busline
+import com.example.myapplication.data.Stop
 
 // Class representing a fake implementation of the BusDataSimulation interface for testing purposes
 class FakeBusDataSimulation : BusDataSimulation {

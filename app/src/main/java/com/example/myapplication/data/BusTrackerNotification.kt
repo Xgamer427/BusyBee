@@ -1,12 +1,15 @@
 package com.example.myapplication.data
 
+import DepartureTime
 import android.app.Notification
 import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.Bus
 import java.lang.Math.abs
 
+
 // Data class representing a notification for a bus tracker.
 data class BusTrackerNotification(
+    val title:String,
     val stop: Stop,
     val busline: Busline,
     val directionArrayAscendant: Boolean? = null,
@@ -79,5 +82,7 @@ data class Busline(
     val name: String,
     val stops: List<Stop>
 ) {
-    // No additional methods or properties for now.
+    override fun toString(): String {
+        return name
+    }
 }

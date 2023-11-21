@@ -1,9 +1,6 @@
 package com.example.myapplication.data
 
-import BusTrackerNotification
-import Busline
 import DepartureTime
-import Stop
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -40,6 +37,9 @@ class BusTrackerViewModel : ViewModel() {
 
     // Direction for the current setup
     var currentSetupDirection: Boolean? = null
+
+    // Title for the current setup
+    var currentSetupTitle: String = ""
 
     /**
      * Function to update the notification array.

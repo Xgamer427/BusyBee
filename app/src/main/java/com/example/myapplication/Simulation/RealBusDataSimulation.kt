@@ -3,9 +3,11 @@ package com.example.myapplication.Simulation
 
 // Import necessary classes for the simulation
 import com.example.myapplication.data.Bus
-import Busline
+
 import DepartureTime
-import Stop
+import com.example.myapplication.data.Busline
+import com.example.myapplication.data.Stop
+
 
 // Class representing a real implementation of the BusDataSimulation interface for actual data simulation
 open class RealBusDataSimulation : BusDataSimulation {

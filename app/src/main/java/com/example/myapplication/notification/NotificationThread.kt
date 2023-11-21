@@ -7,7 +7,7 @@ import android.graphics.Color
 import androidx.core.app.NotificationCompat
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import BusTrackerNotification
+import com.example.myapplication.data.BusTrackerNotification
 
 /**
  * Thread responsible for generating and displaying notifications based on BusTrackerNotification data.

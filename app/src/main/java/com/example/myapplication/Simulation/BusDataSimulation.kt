@@ -2,9 +2,10 @@
 package com.example.myapplication.Simulation
 
 // Import necessary classes for the simulation
-import Busline
-import Stop
+
 import com.example.myapplication.data.Bus
+import com.example.myapplication.data.Busline
+import com.example.myapplication.data.Stop
 
 // Define an interface for simulating bus data
 interface BusDataSimulation {

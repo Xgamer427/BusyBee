@@ -11,10 +11,10 @@ import android.os.IBinder
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import BusTrackerNotification
 import com.example.myapplication.data.BusTrackerViewModel
 import JsonToSaveForPersistance
 import com.example.myapplication.Simulation.BusDataSimulation
+import com.example.myapplication.data.BusTrackerNotification
 import com.google.gson.Gson
 import java.util.Timer
 import java.util.TimerTask

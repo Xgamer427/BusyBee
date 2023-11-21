@@ -1,6 +1,5 @@
 package com.example.myapplication.pages
 
-import BusTrackerNotification
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -54,6 +53,7 @@ class SelectionPage : Fragment() {
                 var textToShowDeparturetime: String = "Select ..."
                 var toShowBufferTime: Int = model.currentSetupBuffertime
                 var toShowAditionalTime: Int = model.currentSetupAdditionalTime
+                var toShowTitle:String = model.currentSetupTitle
 
                 // Check if the currentSetupStop has a name, and if so, update textToShow
                 if (model.currentSetupStop.value?.name != null) {
@@ -73,7 +73,9 @@ class SelectionPage : Fragment() {
                 etBuffertime.setText(toShowBufferTime.toString(), TextView.BufferType.EDITABLE)
                 etAdditionalTime.setText(toShowAditionalTime.toString(), TextView.BufferType.EDITABLE)
                 etNotificationtitle.setText(toShowTitle, TextView.BufferType.EDITABLE)
-
+                if(model.currentSetupStop.value == null ){
+                    btnSelectBuslineSelection.isEnabled = false
+                }
             }
         }
         // Inflate the layout for this fragment
