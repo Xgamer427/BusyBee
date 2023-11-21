@@ -1,4 +1,5 @@
 import com.example.myapplication.Simulation.BusDataSimulation
+import com.example.myapplication.data.BusTrackerNotification
 import com.example.myapplication.data.BusTrackerViewModel
 import org.junit.Test
 import java.time.LocalDateTime
@@ -26,6 +27,7 @@ class ViewModelTest {
             viewModel.addToNotificationArray(
                 mutableListOf<BusTrackerNotification>(
                 BusTrackerNotification(
+                    "Test",
                     BusDataSimulation.getInstance().getStops()[0],
                     BusDataSimulation.getInstance().getBuslines()[0],
                     true,
