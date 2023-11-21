@@ -12,15 +12,20 @@ import com.example.myapplication.R
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.maps.GoogleMap
 
+/**
+ * Fragment for showing a map
+ */
 class MapPage : Fragment() {
 
+    //Map location works but updating it to track location not works so commented out
+    /*
     private val FINE_PERMISSION_CODE : Int = 1
     private lateinit var  myMap: GoogleMap
     lateinit var currentLocation: Location
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
 
     lateinit var appContext : Context
-
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("Map", "onCreate")
         super.onCreate(savedInstanceState)
@@ -33,6 +38,7 @@ class MapPage : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_map, container, false)
     }
+    //Map location works but updating it to track location not works so commented out
 /*
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

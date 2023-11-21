@@ -1,5 +1,6 @@
 package com.example.myapplication.pages
 
+import BusTrackerNotification
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.myapplication.data.BusTrackerNotification
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
@@ -24,10 +24,13 @@ import kotlinx.android.synthetic.main.fragment_selection_page.etAdditionalTime
 import kotlinx.android.synthetic.main.fragment_selection_page.etBuffertime
 import kotlinx.coroutines.launch
 
-
+/**
+ * Fragment for user input and selection of bus tracking parameters.
+ */
 class SelectionPage : Fragment() {
 
     companion object {
+        // Static property for building BusTrackerNotification, not used in the code
         val bustrackerNotificationToBuild: BusTrackerNotification? = null
     }
 
@@ -43,10 +46,7 @@ class SelectionPage : Fragment() {
                 // Create an instance of a ViewModel called BusTrackerViewModel, which appears to be shared with the activity
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
 
-
-                //TODO: Cleaning up the following Code
-
-                // Initialize a default text to show
+                // Initialize default text to show
                 var textToShowStop: String = "Select ..."
                 var textToShowBusLine: String = "Select ..."
                 var textToShowDeparturetime: String = "Select ..."
@@ -79,8 +79,7 @@ class SelectionPage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
-
+        // Button click listener to navigate to the StopSelectionPage fragment
         btnSelectStopSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragment_container, StopSelectionPage())
@@ -89,6 +88,7 @@ class SelectionPage : Fragment() {
             }
         }
 
+        // AddTextChangedListener for etBuffertime to update ViewModel when text changes
         etBuffertime.addTextChangedListener {
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
             if(etBuffertime.text.toString() != ""){
@@ -99,15 +99,17 @@ class SelectionPage : Fragment() {
             }
         }
 
+        // ViewModel observer for currentSetupStop to update the button text
         val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-        model.currentSetupStop.observe(viewLifecycleOwner
-        ) {
+        model.currentSetupStop.observe(viewLifecycleOwner) {
             if(it != null){
                 btnSelectStopSelection.text = it.name
             }else{
                 btnSelectStopSelection.text = "Select"
             }
         }
+
+        // ViewModel observer for currentSetupBusline to update the button text
         model.currentSetupBusline.observe(viewLifecycleOwner){
             if(it != null){
                 btnSelectBuslineSelection.text = it.name
@@ -115,6 +117,8 @@ class SelectionPage : Fragment() {
                 btnSelectBuslineSelection.text = "Select"
             }
         }
+
+        // ViewModel observer for currentSetupDepartureTime to update the button text
         model.currentSetupDepartureTime.observe(viewLifecycleOwner){
             Log.d("SelectionPage", it.toString())
             if(it != null){
@@ -124,6 +128,7 @@ class SelectionPage : Fragment() {
             }
         }
 
+        // AddTextChangedListener for etAdditionalTime to update ViewModel when text changes
         etAdditionalTime.addTextChangedListener {
             if(etAdditionalTime.text.toString() != ""){
                 val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
@@ -133,6 +138,7 @@ class SelectionPage : Fragment() {
             }
         }
 
+        // Button click listener to navigate to the BuslineSelectionPage fragment
         btnSelectBuslineSelection.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 replace(R.id.fragment_container, BuslineSelectionPage())
@@ -141,6 +147,7 @@ class SelectionPage : Fragment() {
             }
         }
 
+        // Button click listener to navigate to the DeparturetimeSelectionPage fragment
         btnSelectDeparturetime.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.apply {
                 Log.d("Tim", "Clicked")
@@ -150,21 +157,21 @@ class SelectionPage : Fragment() {
             }
         }
 
+        // Button click listener to create a new notification and update ViewModel
         btnCreateNotification.setOnClickListener {
             val model = ViewModelProvider(requireActivity())[BusTrackerViewModel::class.java]
-            //Check if the user entered everyting correctly
-            //Das if Statement muss true sein, wenn alles != null ist
 
+            // Check if the user entered everything correctly
+            // The if statement must be true if everything is not null
 
             if((model.currentSetupStop.value != null) &&
                 (model.currentSetupBusline.value != null) &&
                 (model.currentSetupDepartureTime.value != null) &&
                 (model.currentSetupDirection != null) &&
                 (model.currentSetupBuffertime != null)
-                //Buffertime is 0 on default, no null check required
-            )
-            {
-                //put the currentstates into a new Notification
+            // Buffertime is 0 by default, no null check required
+            ) {
+                // Put the current states into a new Notification
                 Toast.makeText(context, "Notification Saved", Toast.LENGTH_SHORT).show()
                 val newNotification = BusTrackerNotification(
                     model.currentSetupStop.value!!,
@@ -178,7 +185,6 @@ class SelectionPage : Fragment() {
                 model.resetCurrentSetup()
                 etBuffertime.setText("0", TextView.BufferType.EDITABLE)
                 etAdditionalTime.setText("0", TextView.BufferType.EDITABLE)
-
 
                 Log.d("Notification", model.toStringCustome())
             } else {

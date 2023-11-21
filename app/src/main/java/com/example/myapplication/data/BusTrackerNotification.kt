@@ -1,6 +1,5 @@
 import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.Bus
-import com.example.myapplication.data.DepartureTime
 import java.lang.Math.abs
 
 // Data class representing a notification for a bus tracker.
@@ -57,8 +56,6 @@ data class BusTrackerNotification(
 
 // Data class representing a bus stop.
 data class Stop(
-    val longitude: Long = 0,
-    val latitude: Long = 0,
     val name: String = ""
 ) {
     // Generates a string representation of the Stop.

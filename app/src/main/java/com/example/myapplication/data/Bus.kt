@@ -1,21 +1,18 @@
 package com.example.myapplication.data
 
 import Busline
+import DepartureTime
 import kotlin.random.Random
 
 /**
  * Data class representing a Bus with its properties.
  *
- * @property longditude The longitude of the bus.
- * @property latitude The latitude of the bus.
  * @property name The name of the bus.
  * @property buslineServed The bus line served by the bus.
  * @property plannedDepTimes The planned departure times for the stops of the bus line.
  * @property directionArrayAscendant Indicates the direction of the bus line (ascending or descending).
  */
 data class Bus(
-    val longditude: Long = 0,
-    val latitude: Long = 0,
     val name: String,
     val buslineServed: Busline,
     val plannedDepTimes: List<DepartureTime>,
@@ -59,22 +56,7 @@ data class Bus(
 
         other as Bus
 
-        // Check equality based on longitude and latitude
-        if (longditude != other.longditude) return false
-        if (latitude != other.latitude) return false
-
         return true
-    }
-
-    /**
-     * Override of the hashCode function to generate a hash code for Bus objects.
-     *
-     * @return The hash code.
-     */
-    override fun hashCode(): Int {
-        var result = longditude.hashCode()
-        result = 31 * result + latitude.hashCode()
-        return result
     }
 
     /**
