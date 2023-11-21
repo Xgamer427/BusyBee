@@ -4,6 +4,7 @@ import BusTrackerNotification
 import Busline
 import DepartureTime
 import Stop
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,7 +15,7 @@ import androidx.lifecycle.ViewModel
 class BusTrackerViewModel : ViewModel() {
 
     // Array to store bus tracker notifications
-    var notificationArray: Array<BusTrackerNotification> = arrayOf()
+    var notificationArray: MutableList<BusTrackerNotification> = mutableListOf<BusTrackerNotification>()
 
     // LiveData for the current setup stop
     private val _currentSetupStop: MutableLiveData<Stop?> = MutableLiveData<Stop?>()
@@ -45,7 +46,7 @@ class BusTrackerViewModel : ViewModel() {
      *
      * @param newNotificationArray The new array of bus tracker notifications.
      */
-    fun addToNotificationArray(newNotificationArray: Array<BusTrackerNotification>) {
+    fun addToNotificationArray(newNotificationArray: MutableList<BusTrackerNotification>) {
         notificationArray = newNotificationArray
     }
 
@@ -91,7 +92,12 @@ class BusTrackerViewModel : ViewModel() {
      * @param busTrackerNotification The notification to add.
      */
     fun addToNotificationArray(busTrackerNotification: BusTrackerNotification) {
-        notificationArray = notificationArray.plus(busTrackerNotification)
+        notificationArray.add(busTrackerNotification)
+        var msg = "${notificationArray.size} Notifications after add"
+        notificationArray.forEach {
+            msg = msg + "\n ${it.toDebugString()}"
+        }
+        Log.d("uiStateJson", "Loaded " + msg)
     }
 
     /**

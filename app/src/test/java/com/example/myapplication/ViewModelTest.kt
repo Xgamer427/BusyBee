@@ -1,32 +1,30 @@
-package com.example.myapplication
-
-
-import TimeMachine
 import com.example.myapplication.Simulation.BusDataSimulation
-import BusTrackerNotification
 import com.example.myapplication.data.BusTrackerViewModel
-import DepartureTime
-import org.junit.Assert
-import org.junit.BeforeClass
 import org.junit.Test
 import java.time.LocalDateTime
+import org.junit.Assert.assertEquals
+import org.junit.BeforeClass
 
+/**
+ * Unit tests for the ViewModel class
+ *
+ */
 class ViewModelTest {
 
-private val TAG = "ViewModelTest"
-
+    //Setup code before all tests executed once
     companion object{
 
         lateinit var viewModel: BusTrackerViewModel
         @BeforeClass
         @JvmStatic // needed otherwise not used
         fun setupUp(){
+            //DataSimulationFake does make the real departuretimes of all busses 3 minutes later then planned departure time
             BusDataSimulation.setDataSimulationToFake()
             viewModel = BusTrackerViewModel()
 
-            //Setup Viewmodel for test
-
-            viewModel.addToNotificationArray(arrayOf<BusTrackerNotification>(
+            //Setup Viewmodel notificationarray for test
+            viewModel.addToNotificationArray(
+                mutableListOf<BusTrackerNotification>(
                 BusTrackerNotification(
                     BusDataSimulation.getInstance().getStops()[0],
                     BusDataSimulation.getInstance().getBuslines()[0],
@@ -39,35 +37,47 @@ private val TAG = "ViewModelTest"
 
         }
     }
-    @Test
-    fun TestGetNotification (){
 
+    /**
+     * test for getting all set up  which needs a notification right now
+     */
+    @Test
+    fun testGetNotification() {
+        // Test when no notifications are needed
         var timeDate = LocalDateTime.parse("2018-12-30T12:02:00.00")
         TimeMachine.useFixedClockAt(timeDate)
+        var listOfNotifications: List<BusTrackerNotification> = viewModel.getNofiticationNeeded()
+        assertEquals(0, listOfNotifications.size)
 
-        var listOfNotitications : List<BusTrackerNotification> = viewModel.getNofiticationNeeded()
-        Assert.assertEquals(0, listOfNotitications.size)
-
-
+        // Test when a notification is needed
         timeDate = LocalDateTime.parse("2018-12-30T12:03:00.00")
         TimeMachine.useFixedClockAt(timeDate)
+        listOfNotifications = viewModel.getNofiticationNeeded()
+        assertEquals(1, listOfNotifications.size)
 
-        listOfNotitications = viewModel.getNofiticationNeeded()
-        Assert.assertEquals(1, listOfNotitications.size)
     }
 
+    /**
+     * test for getting the real departure time of a notifications bus
+     */
     @Test
-    fun getRealDepartureTimeTest(){
+    fun testGetRealDepartureTime() {
+        // Test the getRealDepartureTime function
         val departureTime = viewModel.notificationArray[0].getRealDepartureTime()
-        Assert.assertEquals(DepartureTime(12,5), departureTime)
+        assertEquals(DepartureTime(12, 5), departureTime)
+
+        // Add more assertions as needed
     }
 
-
+    /**
+     * Test for getting the time to get ready for the bus for the notification
+     */
     @Test
-    fun getTimeToGetReadyTest() {
-        val departureTime = viewModel.notificationArray[0].getTimeToGetReady()
-        Assert.assertEquals(DepartureTime(12,3), departureTime)
+    fun testGetTimeToGetReady() {
+        // Test the getTimeToGetReady function
+        val timeToGetReady = viewModel.notificationArray[0].getTimeToGetReady()
+        assertEquals(DepartureTime(12, 3), timeToGetReady)
+
+        // Add more assertions as needed
     }
-
-
 }

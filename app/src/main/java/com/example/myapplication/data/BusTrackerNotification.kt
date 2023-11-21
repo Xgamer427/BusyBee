@@ -21,6 +21,13 @@ data class BusTrackerNotification(
                 "\n after $timePicked (+ $buffertime + $additionalTime)"
     }
 
+    fun toDebugString(): String{
+        return "\n${stop.name}" +
+                "\n${busline.name}" +
+                "\n after $timePicked (+ $buffertime + $additionalTime)" +
+                "\n notificationDone: $notificationDone"
+    }
+
     // Retrieves the real departure time of the bus based on user input and simulated data.
     fun getRealDepartureTime(): DepartureTime? {
         var indexIfStopInBusLine: Int = 0

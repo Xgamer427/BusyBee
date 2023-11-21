@@ -3,7 +3,6 @@ package com.example.myapplication
 
 // Import necessary Android classes and libraries
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.myapplication.Simulation.BusDataSimulation
 import com.example.myapplication.data.BusTrackerViewModel
-import NotificationService
 import com.example.myapplication.notification.NotificationThread
 import com.example.myapplication.pages.MapPage
 import com.example.myapplication.pages.OverviewFragment
@@ -108,26 +106,32 @@ class MainActivity : AppCompatActivity() {
             val loadedUIState: JsonToSaveForPersistance =
                 Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
             viewModel.addToNotificationArray(loadedUIState.listOfNotification)
-
+            viewModel.notificationArray.removeAll {
+                it.notificationDone
+            }
         }
 
         var msg = "${viewModel.notificationArray.size} Notifications Loaded"
         viewModel.notificationArray.forEach {
-            msg = msg + "\n $it"
+            msg = msg + "\n ${it.toDebugString()}"
         }
         Log.d("uiStateJson", "Loaded " + msg)
     }
 
     // Function called when the activity is paused
     override fun onPause() {
+        Log.d(TAG, "onPause")
         // Save UI state to shared preferences
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val edit = pref.edit()
+        viewModel.notificationArray.removeAll {
+            it.notificationDone
+        }
         val uiStateJson: String = Gson().toJson(JsonToSaveForPersistance(viewModel.notificationArray))
         edit.putString("uiStateJson", uiStateJson)
         edit.commit()
 
-        // Start the NotificationService
+        // Start the com.example.myapplication.NotificationService
         val intent = Intent(this, NotificationService::class.java)
         startService(intent)
 

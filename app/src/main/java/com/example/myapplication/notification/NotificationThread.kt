@@ -58,7 +58,11 @@ class NotificationThread(
                 nm.notify(1, notification)
             }
             mainActivity.viewModel.setNotificationDone(listOfNotifications)
-            Thread.sleep(10000)
+            mainActivity.viewModel.notificationArray.removeAll {
+                it.notificationDone
+            }
+
+            Thread.sleep(5000)
         }
     }
 }

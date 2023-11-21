@@ -1,3 +1,5 @@
+package com.example.myapplication
+
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -9,10 +11,10 @@ import android.os.IBinder
 import android.preference.PreferenceManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.example.myapplication.R
 import BusTrackerNotification
 import com.example.myapplication.data.BusTrackerViewModel
 import JsonToSaveForPersistance
+import com.example.myapplication.Simulation.BusDataSimulation
 import com.google.gson.Gson
 import java.util.Timer
 import java.util.TimerTask
@@ -36,7 +38,7 @@ class NotificationService() : Service() {
      * Called when the service is started. Initializes the timer and loads the last known UI state.
      */
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.e(TAG, "onStartCommand: got from intent")
+        Log.d(TAG, "onStartCommand: got from intent")
         var viewModelJsonString: String? = null
         super.onStartCommand(intent, flags, startId)
         startTimer()
@@ -44,12 +46,24 @@ class NotificationService() : Service() {
         val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
         val jsonStringUIState: String? = pref.getString("uiStateJson", null)
         if (jsonStringUIState != null) {
-            val loadedNotificationArray: JsonToSaveForPersistance =
+            val jsonToSaveForPersistance: JsonToSaveForPersistance =
                 Gson().fromJson(jsonStringUIState, JsonToSaveForPersistance::class.java)
-            Log.e(TAG, loadedNotificationArray.toString())
-            var notificationArray: Array<BusTrackerNotification> = loadedNotificationArray.listOfNotification
+            var notificationArray: MutableList<BusTrackerNotification> = jsonToSaveForPersistance.listOfNotification
+            Log.d(TAG, notificationArray.toString())
             lastBustrackerUIState = BusTrackerViewModel()
             lastBustrackerUIState!!.notificationArray = notificationArray
+        }else{
+            Log.d("uiStateJson", "Json string loaded in service is null")
+        }
+        if(lastBustrackerUIState != null){
+            var msg = "${lastBustrackerUIState!!.notificationArray.size} Notifications after loaded in service"
+            lastBustrackerUIState!!.notificationArray.forEach {
+                msg = msg + "\n ${it.toDebugString()}"
+            }
+            Log.d("uiStateJson", "Loaded " + msg)
+        }
+        BusDataSimulation.getInstance().getBusses().forEach {
+            Log.d("BusDataSimulation in Service", it.myToString())
         }
         return START_STICKY
     }
@@ -144,8 +158,14 @@ class NotificationService() : Service() {
                             nm.notify(1, notification)
                             listOfNotitications.forEach {
                                 it.notificationDone = true
+                                if(lastBustrackerUIState?.notificationArray != null){
+                                    lastBustrackerUIState!!.notificationArray.remove(it)
+                                }
                             }
                             if (lastBustrackerUIState != null) {
+                                lastBustrackerUIState!!.notificationArray.removeAll {
+                                    it.notificationDone
+                                }
                                 val pref = PreferenceManager.getDefaultSharedPreferences(applicationContext)
                                 val edit = pref.edit()
                                 val uiStateJson: String = Gson().toJson(JsonToSaveForPersistance(

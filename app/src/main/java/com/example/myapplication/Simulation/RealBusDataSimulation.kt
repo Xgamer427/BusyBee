@@ -29,7 +29,7 @@ open class RealBusDataSimulation : BusDataSimulation {
         Bus("Bus0", buslines[0],
             mutableListOf(
                 DepartureTime(0, 30),
-                DepartureTime(15, 5),
+                DepartureTime(11, 30),
                 DepartureTime(17, 47)
             ),
             true
